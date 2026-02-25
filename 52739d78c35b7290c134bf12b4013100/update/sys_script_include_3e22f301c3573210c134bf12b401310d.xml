@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_42999_import_v_0.MapperBase</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>MapperBase</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var MapperBase = Class.create();
+MapperBase.prototype = {
+	key: '',
+	value:'',
+	data:[],
+
+    initialize: function(dataSourceName, key, value) {
+		this.data_source_name = dataSourceName;
+		this.key = key;
+		this.value = value;
+		this.data = fetch(dataSourceName);
+    },
+	
+	fetch: function(dataSourceName){ 
+		var data_source_sys_id = getDataSourceSysId(dataSourceName);
+		var data = getMappedValues(data_source_sys_id);
+		return data; 
+	},
+
+	getDataSourceSysId: function(dataSourceName){
+		var result = '';
+		var gr = new GlideRecord("sys_data_source");
+		gr.addQuery("sys_scope", gs.getCurrentApplicationScope());
+		gr.addQuery("name", dataSourceName);
+		gr.setLimit(1);
+		gr.query();
+		if(gr.next()) result = gr.getValue("sys_id");
+		return result;
+	},
+
+	getAttachmentSysId: function(dataSourceSysId) {
+		var result = "";
+		var gr = new GlideRecord("sys_attachment");
+		gr.addQuery("table_name", "sys_data_source");
+		gr.addQuery("table_sys_id", dataSourceSysId);
+		gr.setLimit(1);
+		gr.query();
+		if (gr.next()) result = gr.getValue("sys_id");
+		return result;
+	},
+
+	getMappedValues: function(dataSourceSysId) {
+		var attachment_sys_id = getAttachmentSysId();
+
+	},
+
+    type: 'MapperBase'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-02-25 02:44:24</sys_created_on>
+        <sys_id>3e22f301c3573210c134bf12b401310d</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>MapperBase</sys_name>
+        <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name>sys_script_include_3e22f301c3573210c134bf12b401310d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-02-25 03:09:18</sys_updated_on>
+    </sys_script_include>
+</record_update>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_transform_script">
+    <sys_transform_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <map display_value="Vendor Data">dbc032fcc317b290c134bf12b4013105</map>
+        <order>100</order>
+        <script><![CDATA[(function runTransformScript(source, map, log, target /*undefined onStart*/ ) {
+
+    // Set skip to true if serial number, asset tag, 
+	// part id or location is empty
+	// The onBefore will ignore these rows.
+    var gr_is_row = new GlideRecord(source.getTableName());
+    gr_is_row.addQuery("sys_import_set", import_set.sys_id);
+    gr_is_row.query();
+    while (gr_is_row.hasNext()) {
+        gr_is_row.next();
+
+        if (gr_is_row.u_serial_number.nil()) {
+            gr_is_row.setValue("u_skip", true);
+			gr_is_row.setValue("u_skip_reason", "No serial number");
+			gr_is_row.update();
+        } else if (gr_is_row.u_asset_tag.nil()) {
+            gr_is_row.setValue("u_skip", true);
+			gr_is_row.setValue("u_skip_reason", "No asset tag");
+			gr_is_row.update();
+        } else if (gr_is_row.u_part_id.nil()) {
+            gr_is_row.setValue("u_skip", true);
+			gr_is_row.setValue("u_skip_reason", "No part id");
+			gr_is_row.update();
+        } else if (gr_is_row.u_location.nil()) {
+            gr_is_row.setValue("u_skip", true);
+			gr_is_row.setValue("u_skip_reason", "No location");
+			gr_is_row.update();
+        }
+    }
+
+})(source, map, log, target);]]></script>
+        <sys_class_name>sys_transform_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-02-24 03:27:57</sys_created_on>
+        <sys_id>5803b6f0c357b290c134bf12b401313e</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>onStart</sys_name>
+        <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name>sys_transform_script_5803b6f0c357b290c134bf12b401313e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-02-25 02:33:51</sys_updated_on>
+        <when>onStart</when>
+    </sys_transform_script>
+</record_update>
