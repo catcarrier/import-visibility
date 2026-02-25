@@ -11,49 +11,72 @@
         <sandbox_callable>false</sandbox_callable>
         <script><![CDATA[var MapperBase = Class.create();
 MapperBase.prototype = {
-	key: '',
-	value:'',
-	data:[],
+    key: 'key',
+    value: 'value',
+    data: [],
 
-    initialize: function(dataSourceName, key, value) {
-		this.data_source_name = dataSourceName;
-		this.key = key;
-		this.value = value;
-		this.data = fetch(dataSourceName);
+    initialize: function(applicationName, dataSourceName, resolver, key, value) {
+        if(key) this.key = key;
+        if(value) this.value = value;
+        this.data = this.fetch(applicationName, dataSourceName, resolver);
     },
-	
-	fetch: function(dataSourceName){ 
-		var data_source_sys_id = getDataSourceSysId(dataSourceName);
-		var data = getMappedValues(data_source_sys_id);
-		return data; 
-	},
 
-	getDataSourceSysId: function(dataSourceName){
-		var result = '';
-		var gr = new GlideRecord("sys_data_source");
-		gr.addQuery("sys_scope", gs.getCurrentApplicationScope());
-		gr.addQuery("name", dataSourceName);
-		gr.setLimit(1);
-		gr.query();
-		if(gr.next()) result = gr.getValue("sys_id");
-		return result;
-	},
+	getData: function(){ return this.data; },
 
-	getAttachmentSysId: function(dataSourceSysId) {
-		var result = "";
-		var gr = new GlideRecord("sys_attachment");
-		gr.addQuery("table_name", "sys_data_source");
-		gr.addQuery("table_sys_id", dataSourceSysId);
-		gr.setLimit(1);
-		gr.query();
-		if (gr.next()) result = gr.getValue("sys_id");
-		return result;
-	},
+    fetch: function(applicationName, dataSourceName, resolver) {
+        var data_source_sys_id = this.getDataSourceSysId(applicationName, dataSourceName);
+        var data = this.getValues(data_source_sys_id);
+		data = resolver.resolve(data);
+        return data;
+    },
 
-	getMappedValues: function(dataSourceSysId) {
-		var attachment_sys_id = getAttachmentSysId();
+    getDataSourceSysId: function(applicationName, dataSourceName) {
+        var result = '';
+        var gr = new GlideRecord("sys_data_source");
+        gr.addQuery("sys_scope.name", applicationName);
+        gr.addQuery("name", dataSourceName);
+        gr.setLimit(1);
+        gr.query();
+        if (gr.next()) result = gr.getValue("sys_id");
+        return result;
+    },
 
-	},
+    // unstated assumption that the attachment is Excel
+    getAttachmentSysId: function(dataSourceSysId) {
+        var result = "";
+        var gr = new GlideRecord("sys_attachment");
+        gr.addQuery("table_name", "sys_data_source");
+        gr.addQuery("table_sys_id", dataSourceSysId);
+        gr.setLimit(1);
+        gr.query();
+        if (gr.next()) result = gr.getValue("sys_id");
+        return result;
+    },
+
+    getValues: function(dataSourceSysId) {
+		var data = [];
+        var attachment_sys_id = this.getAttachmentSysId(dataSourceSysId);
+        var parser = new sn_impex.GlideExcelParser();
+        var gsa = new GlideSysAttachment();
+        var attachmentStream = gsa.getContentStream(attachment_sys_id);
+        parser.parse(attachmentStream);
+
+		// skip first row. Stop reading when key and value columns are empty.
+		// Use JSON stringify to escape the key and value; note that this
+		// returns the value enclosed in double quotes. Use slice to remove.
+		parser.next();
+        while (parser.next()) {
+            var row = parser.getRow();
+			var key = row[this.key];
+			var value = row[this.value];
+			if(!key && !value) break;
+			data.push({
+				"key":JSON.stringify(key).slice(1, -1),
+				"value":JSON.stringify(value).slice(1, -1)
+			});
+        }
+		return data;
+    },
 
     type: 'MapperBase'
 };]]></script>
@@ -61,13 +84,13 @@ MapperBase.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-02-25 02:44:24</sys_created_on>
         <sys_id>3e22f301c3573210c134bf12b401310d</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>11</sys_mod_count>
         <sys_name>MapperBase</sys_name>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
         <sys_update_name>sys_script_include_3e22f301c3573210c134bf12b401310d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-02-25 03:09:18</sys_updated_on>
+        <sys_updated_on>2026-02-25 04:36:46</sys_updated_on>
     </sys_script_include>
 </record_update>

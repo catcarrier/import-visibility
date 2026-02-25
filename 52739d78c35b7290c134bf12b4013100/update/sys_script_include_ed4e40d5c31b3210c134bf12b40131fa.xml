@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_42999_import_v_0.LocationResolver</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>LocationResolver</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var LocationResolver = Class.create();
+LocationResolver.prototype = Object.extendsObject({ BaseResolver,
+
+    initialize: function() {
+    },
+
+	resolve: function(object) {
+		throw "Not implemented";
+	},
+
+    type: 'LocationResolver'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-02-25 04:43:22</sys_created_on>
+        <sys_id>ed4e40d5c31b3210c134bf12b40131fa</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>LocationResolver</sys_name>
+        <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name>sys_script_include_ed4e40d5c31b3210c134bf12b40131fa</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-02-25 04:43:22</sys_updated_on>
+    </sys_script_include>
+</record_update>
