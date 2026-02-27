@@ -2,38 +2,39 @@
     <sys_script_include action="INSERT_OR_UPDATE">
         <access>public</access>
         <active>true</active>
-        <api_name>x_42999_import_v_0.MapperBase</api_name>
+        <api_name>x_42999_import_v_0.BaseDataSourceReader</api_name>
         <caller_access/>
         <client_callable>false</client_callable>
-        <description/>
+        <description>Reads a map data source and returns an array of objects representing certain column values</description>
         <mobile_callable>false</mobile_callable>
-        <name>MapperBase</name>
+        <name>BaseDataSourceReader</name>
         <sandbox_callable>false</sandbox_callable>
-        <script><![CDATA[var MapperBase = Class.create();
-MapperBase.prototype = {
-    key: 'key',
-    value: 'value',
+        <script><![CDATA[var BaseDataSourceReader = Class.create();
+BaseDataSourceReader.prototype = {
+    key_column: 'key',
+    value_column: 'value',
     data: [],
 
-    initialize: function(applicationName, dataSourceName, resolver, key, value) {
-        if(key) this.key = key;
-        if(value) this.value = value;
-        this.data = this.fetch(applicationName, dataSourceName, resolver);
+    initialize: function(applicationScopeName, dataSourceName, key, value) {
+        if (key) this.key_column = key;
+        if (value) this.value_column = value;
+        this.data = this.fetch(applicationScopeName, dataSourceName);
     },
 
-	getData: function(){ return this.data; },
+    getData: function() {
+        return this.data;
+    },
 
-    fetch: function(applicationName, dataSourceName, resolver) {
-        var data_source_sys_id = this.getDataSourceSysId(applicationName, dataSourceName);
-        var data = this.getValues(data_source_sys_id);
-		data = resolver.resolve(data);
+    fetch: function(applicationScopeName, dataSourceName, columns /*, resolver */ ) {
+        var data_source_sys_id = this.getDataSourceSysId(applicationScopeName, dataSourceName);
+        var data = this.getValues(data_source_sys_id, columns);
         return data;
     },
 
-    getDataSourceSysId: function(applicationName, dataSourceName) {
+    getDataSourceSysId: function(applicationScopeName, dataSourceName) {
         var result = '';
         var gr = new GlideRecord("sys_data_source");
-        gr.addQuery("sys_scope.name", applicationName);
+        gr.addQuery("sys_package.source", applicationScopeName);
         gr.addQuery("name", dataSourceName);
         gr.setLimit(1);
         gr.query();
@@ -53,44 +54,57 @@ MapperBase.prototype = {
         return result;
     },
 
+    // unstated assumpion data source has two columns,
+    // key and value, though these names can be overridden
     getValues: function(dataSourceSysId) {
-		var data = [];
+        var data = [];
         var attachment_sys_id = this.getAttachmentSysId(dataSourceSysId);
         var parser = new sn_impex.GlideExcelParser();
         var gsa = new GlideSysAttachment();
         var attachmentStream = gsa.getContentStream(attachment_sys_id);
         parser.parse(attachmentStream);
 
-		// skip first row. Stop reading when key and value columns are empty.
-		// Use JSON stringify to escape the key and value; note that this
-		// returns the value enclosed in double quotes. Use slice to remove.
-		parser.next();
+        // skip first row. Stop reading when key and value columns are empty.
+        // Use JSON stringify to escape the key and value; note that this
+        // returns the value enclosed in double quotes. Use slice to remove.
+        var i = 0;
+        parser.next();
         while (parser.next()) {
+            i++;
             var row = parser.getRow();
-			var key = row[this.key];
-			var value = row[this.value];
-			if(!key && !value) break;
-			data.push({
-				"key":JSON.stringify(key).slice(1, -1),
-				"value":JSON.stringify(value).slice(1, -1)
-			});
+            var key = row[this.key_column];
+            var value = row[this.value_column];
+            if (!key && !value) {
+                gs.info("breaking at row " + i);
+                break;
+            }
+
+            data.push({
+                "key": key,
+                "value": value
+            });
+
+            // data.push({
+            //     "key": JSON.stringify(key).slice(1, -1),
+            //     "value": JSON.stringify(value).slice(1, -1)
+            // });
         }
-		return data;
+        return data;
     },
 
-    type: 'MapperBase'
+    type: 'BaseDataSourceReader'
 };]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-02-25 02:44:24</sys_created_on>
         <sys_id>3e22f301c3573210c134bf12b401310d</sys_id>
-        <sys_mod_count>11</sys_mod_count>
-        <sys_name>MapperBase</sys_name>
+        <sys_mod_count>27</sys_mod_count>
+        <sys_name>BaseDataSourceReader</sys_name>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
         <sys_update_name>sys_script_include_3e22f301c3573210c134bf12b401310d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-02-25 04:36:46</sys_updated_on>
+        <sys_updated_on>2026-02-27 04:02:31</sys_updated_on>
     </sys_script_include>
 </record_update>

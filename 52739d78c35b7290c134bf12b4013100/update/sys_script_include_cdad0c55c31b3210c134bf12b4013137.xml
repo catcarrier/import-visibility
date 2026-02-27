@@ -11,12 +11,100 @@
         <sandbox_callable>false</sandbox_callable>
         <script><![CDATA[var BaseResolver = Class.create();
 BaseResolver.prototype = {
-    initialize: function() {
+    table_name: "",
+    table_column: "name",
+
+    initialize: function(tableName, tableColumn) {
+        if (!tableName) throw "tableName required";
+        this.table_name = tableName;
+        if (tableColumn) this.table_column = tableColumn;
     },
 
-	resolve: function(object) {
-		throw "Please extend this class and provide an override";
-	},
+    // Single match found:
+    // {
+    //  "valid": true,
+    //  "ref": {
+    //    "display":"140 George Street, Sydney",
+    //    "sys_id":"xxx"
+    //  }
+    // }
+    //
+    // Not found:
+    // {
+    //  "valid": false,
+    //  "message":"..."
+    // }
+    //
+    // Ambiguous/multiple possible matches:
+    // {
+    //  "valid": false,
+    //  "message":"...",
+    //  "refs": [
+    //    {
+    //      "display":"140 George Street, Sydney",
+    //      "sys_id":"xxx"
+    //    }, ...
+    //  ]
+    // }
+    //
+    //
+    resolve: function(value, exactMatch = false, limit = 3) {
+
+        var response = {
+            "value": value,
+            "exactMatch": exactMatch,
+            "valid": false,
+			"refs":[]
+        };
+
+        // An array of objects representing table rows
+        // matching @value. If @exactMatch is false this may
+        // be based on a partial match:
+        // Passing in ("Felix", false) will return ["FelixStrasse", "Felix the Cat"].
+        // Passing in ("Felix", true) will return [].
+        var refs = this._getReferences(this.table_column, value, exactMatch, limit);
+
+        if (refs.length == 0) {
+            response.message = "Not found";
+        } else if (refs.length == 1) {
+            response.valid = true;
+            response.refs = refs;
+        }else {
+            response.message = "ambiguous";
+            response.refs = refs;
+        }
+        return response;
+    },
+
+
+	// Returns an array; may be empty.
+	//
+    // [{
+    //   "name":"...",
+    //   "sys_id":"..."
+    //   }, ...
+    // ]
+    _getReferences: function(column_name, value, exactMatch, limit) {
+		var refs = [];
+
+        var gr = new GlideRecord(this.table_name);
+
+        var qc = gr.addQuery(column_name, exactMatch ? "=" : "STARTSWITH", value);
+		if(column_name != "name") {
+			qc.addOrCondition('name', exactMatch ? "=" : "STARTSWITH", value);
+		}
+
+        gr.setLimit(limit);
+
+        gr.query();
+        while (gr.next()) {
+            refs.push({
+                "name": gr.getValue("name"),
+                "sys_id": gr.getValue("sys_id")
+            });
+        }
+        return refs;
+    },
 
     type: 'BaseResolver'
 };]]></script>
@@ -24,13 +112,13 @@ BaseResolver.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-02-25 04:39:17</sys_created_on>
         <sys_id>cdad0c55c31b3210c134bf12b4013137</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>30</sys_mod_count>
         <sys_name>BaseResolver</sys_name>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
         <sys_update_name>sys_script_include_cdad0c55c31b3210c134bf12b4013137</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-02-25 04:39:48</sys_updated_on>
+        <sys_updated_on>2026-02-27 05:04:26</sys_updated_on>
     </sys_script_include>
 </record_update>
