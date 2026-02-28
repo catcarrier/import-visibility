@@ -2,24 +2,47 @@
     <sys_transform_script action="INSERT_OR_UPDATE">
         <active>true</active>
         <map display_value="Vendor Data">dbc032fcc317b290c134bf12b4013105</map>
-        <order>300</order>
+        <order>225</order>
         <script><![CDATA[(function runTransformScript(source, map, log, target /*undefined onStart*/ ) {
 
-	// Set Skip if Location empty
+	// Skip if location does not appear in
+	// location code/Location name map.
+
+    // User-supplied mapping of location codes 
+    // to location names. Here we want just the codes.
+    var locationCodes = new BaseDataSourceReader(gs.getCurrentScopeName(), "Locations")
+        .getData()
+        .filter(e => e.key && e.value) // filter out incomplete entries
+		.map(e => e.key);
+
+    var gr_is_row = new GlideRecord(source.getTableName());
+    gr_is_row.addQuery("sys_import_set", import_set.sys_id);
+    gr_is_row.addQuery("u_skip", false);
+    gr_is_row.query();
+    while (gr_is_row.hasNext()) {
+        gr_is_row.next();
+
+		var locationCode = gr_is_row.getValue("u_location");
+		if(locationCodes.indexOf(locationCode) == -1) {
+			gr_is_row.setValue("u_skip", true);
+            gr_is_row.setValue("u_skip_reason", "Location not mapped");
+            gr_is_row.update();
+		}
+    }
 
 })(source, map, log, target);]]></script>
         <sys_class_name>sys_transform_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-02-25 02:27:56</sys_created_on>
         <sys_id>fcff2fc9c3173210c134bf12b4013191</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>onStart</sys_name>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
         <sys_policy/>
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
         <sys_update_name>sys_transform_script_fcff2fc9c3173210c134bf12b4013191</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-02-25 02:28:34</sys_updated_on>
+        <sys_updated_on>2026-02-28 05:01:16</sys_updated_on>
         <when>onStart</when>
     </sys_transform_script>
 </record_update>

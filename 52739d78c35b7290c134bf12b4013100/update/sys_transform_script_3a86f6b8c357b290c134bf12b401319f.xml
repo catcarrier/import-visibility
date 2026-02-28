@@ -4,51 +4,70 @@
         <map display_value="Vendor Data">dbc032fcc317b290c134bf12b4013105</map>
         <order>150</order>
         <script><![CDATA[(function runTransformScript(source, map, log, target /*undefined onStart*/ ) {
+        // Populate Model based on Part id, or set
+        // skip to true if no Model can be found.
 
-	// Populate Model based on Part id, or set 
-	// skip to true if no Model can be found.
+        // User-supplied mapping of vendor part ids to Model-names,
+        // filtered down to only entries where both key and value 
+        // are populated.
+        // The model-name may be a partial name.
+        //
+        // [{
+        //    "key": "CGX-13",
+        //    "value": "Cyberpower Gamer Xtreme 1311"
+        //  }, ...]
+        var models = new BaseDataSourceReader(gs.getCurrentScopeName(), "Models")
+            .getData()
+            .filter(e => e.key && e.value);
 
-	// Get the mapping of source value 'part id'
-	// to model-name:
-	//
-	// [{"key":"ASU-G-500","value":"Asus G Series"}, ...]
-	//
-	var util = new MapperBase("Import Visibility", "Models");
-	var mapping = util.getData();
+        // The resolver returns an object describing whether that
+        // model-name (@value, above) maps to a Model(valid), or to 
+        // nothing (invalid), or to multiple models (also invalid).
+        var resolver = new ModelResolver("cmdb_model", "name");
 
-	// The resolver updates each object with a Reference
-	// based on @value
-	//var resolver = 
-    var gr_is_row = new GlideRecord(source.getTableName());
-    gr_is_row.addQuery("sys_import_set", import_set.sys_id);
-	gr_is_row.addQuery("u_skip", false);
-    gr_is_row.query();
-    while (gr_is_row.hasNext()) {
-        gr_is_row.next();
+        // Loop through the rows, passing each u_part_id to 
+        // the resolver. If the resolver returns a good reference 
+        // to a Model, populate that reference into the row, otherwise
+        // mark the row skipped.
+        var gr_is_row = new GlideRecord(source.getTableName());
+        gr_is_row.addQuery("sys_import_set", import_set.sys_id);
+        gr_is_row.addQuery("u_skip", false);
+        gr_is_row.query();
+        while (gr_is_row.hasNext()) {
+            gr_is_row.next();
 
-		// TODO
-		// check for Model
+            var part_id = gr_is_row.getValue("u_part_id");
 
+            // We already checked, in a previous script, that
+            // each part id is listed in the part id/Model map, so we
+            // can skip checking that here
 
-		// TODO
-		//Set Model
+            var modelName = models[part_id];
+            var response = resolver.resolve(modelName, false);
+            if (response.valid) {
+                gr_is_row.setValue("u_model_ref", response.refs[0].sys_id);
+                gr_is_row.update();
+            } else {
+                gr_is_row.setValue("u_skip", true);
+                gr_is_row.setValue("u_skip_reason", response.message);
+                gr_is_row.update();
+            }
 
-
-	}
+        }
 
 })(source, map, log, target);]]></script>
         <sys_class_name>sys_transform_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-02-24 03:40:28</sys_created_on>
         <sys_id>3a86f6b8c357b290c134bf12b401319f</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name>onStart</sys_name>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
         <sys_policy/>
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
         <sys_update_name>sys_transform_script_3a86f6b8c357b290c134bf12b401319f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-02-26 04:23:11</sys_updated_on>
+        <sys_updated_on>2026-02-28 04:13:07</sys_updated_on>
         <when>onStart</when>
     </sys_transform_script>
 </record_update>

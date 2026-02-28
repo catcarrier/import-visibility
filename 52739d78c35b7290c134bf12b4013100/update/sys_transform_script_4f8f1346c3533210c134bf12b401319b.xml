@@ -2,46 +2,48 @@
     <sys_transform_script action="INSERT_OR_UPDATE">
         <active>true</active>
         <map display_value="Vendor Data">dbc032fcc317b290c134bf12b4013105</map>
-        <order>350</order>
+        <order>125</order>
         <script><![CDATA[(function runTransformScript(source, map, log, target /*undefined onStart*/ ) {
+    // Set skip to true if part_id not mapped to anything
 
-	var gr = new GlideRecord(target.getTableName());
+    // The part ids from the part id/Model map, filtered to only
+	// part ids mapped to some value
+    var part_ids = new BaseDataSourceReader(gs.getCurrentScopeName(), "Models")
+        .getData()
+        .filter(e => e.key && e.value)
+		.map(e => e.key);
 
-	// Set skip to true if a matching row exists
     var gr_is_row = new GlideRecord(source.getTableName());
     gr_is_row.addQuery("sys_import_set", import_set.sys_id);
-	gr_is_row.addQuery("u_skip", false);
+    gr_is_row.addQuery("u_skip", false);
     gr_is_row.query();
     while (gr_is_row.hasNext()) {
         gr_is_row.next();
 
-		gr.addQuery("serial_number", gr_is_row.getValue("u_serial_number"));
-		gr.addQuery("asset_tag", gr_is_row.getValue("u_asset_tag"));
-		gr.addQuery("model", gr_is_row.getValue("u_model"));
-		gr.addQuery("location", gr_is_row.getValue("u_location"));
-		gr.setLimit(1);
-		gr.query();
-		if(gr.next()) {
-			gr_is_row.setValue("u_skip", true);
-			gr_is_row.setValue("u_skip_reason", "Matching target row found");
-			gr_is_row.update();
-		}
+		// We aleady skipped rows where this field is empty
+        var part_id = gr_is_row.getValue("u_part_id");
 
-	}
+        if (part_ids.indexOf(part_id) == -1) {
+            gr_is_row.setValue("u_skip", true);
+            gr_is_row.setValue("u_skip_reason", "Part id not mapped");
+            gr_is_row.update();
+        }
+
+    }
 
 })(source, map, log, target);]]></script>
         <sys_class_name>sys_transform_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2026-02-24 03:45:49</sys_created_on>
-        <sys_id>e9183a7cc357b290c134bf12b40131b7</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_created_on>2026-02-28 04:05:11</sys_created_on>
+        <sys_id>4f8f1346c3533210c134bf12b401319b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
         <sys_name>onStart</sys_name>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
         <sys_policy/>
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
-        <sys_update_name>sys_transform_script_e9183a7cc357b290c134bf12b40131b7</sys_update_name>
+        <sys_update_name>sys_transform_script_4f8f1346c3533210c134bf12b401319b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-02-28 05:13:45</sys_updated_on>
+        <sys_updated_on>2026-02-28 04:05:11</sys_updated_on>
         <when>onStart</when>
     </sys_transform_script>
 </record_update>
