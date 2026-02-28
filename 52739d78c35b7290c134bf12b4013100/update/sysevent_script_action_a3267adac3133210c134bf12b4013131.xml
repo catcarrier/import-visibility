@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sysevent_script_action">
+    <sysevent_script_action action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <condition_script/>
+        <description/>
+        <event_name>x_42999_import_v_0.data_received</event_name>
+        <name>Schedule New Import</name>
+        <order>100</order>
+        <script><![CDATA[// current: GlideRecord - event scheduled on behalf of (incident for example) 
+// event: GlideRecord - sysevent that caused this to be invoked
+
+queueNextImport(
+	current /* New file is parked here */,
+	event.parm1 /* New file */);
+
+function queueNextImport(current, attachment_sys_id) {
+    // Move the attachment to a new data source, and set
+	// up a run-once import.
+
+    // Create a new Data Source, "Vendor Data YYYYMMDD HHMMSS"
+    var gr_ds = new GlideRecord("sys_data_source");
+    gr_ds.setValue("type", "File");
+    gr_ds.setValue("format", "Excel");
+    gr_ds.setValue("file_retrieval_method", "Attachment");
+    gr_ds.setValue("import_set_table_name", "x_42999_import_v_0_vendor_hardware_rows");
+    gr_ds.setValue("import_set_table_label", "Vendor Data Rows");
+    gr_ds.setValue("sheet_number", "1");
+    gr_ds.setValue("header_row", "0");
+
+    var gdt = new GlideDateTime();
+    var data_source_name = "Vendor Data " + gdt.getDisplayValueInternal();
+    gr_ds.setValue("name", data_source_name);
+    var ds_sys_id = gr_ds.update();
+
+    // copy the attachment to the new 
+    // Data Source created above, and delete the original
+    var gsa = new GlideSysAttachment();
+    gsa.copy(
+        "sys_data_source",
+        current.getValue("sys_id"),
+        "sys_data_source",
+        ds_sys_id
+    );
+
+	gsa.deleteAttachment(attachment_sys_id);
+
+    // Create a new Scheduled Data Import (scheduled_import_set), 
+    var gr_sis = new GlideRecord("scheduled_import_set");
+    gr_sis.initialize();
+    gr_sis.setValue("active", true);
+    gr_sis.setValue("data_source", ds_sys_id);
+    gr_sis.setValue("name", data_source_name);
+    gr_sis.setValue("run_type", "once");
+
+    // run 5 seconds from now
+    gdt = new GlideDateTime();
+    gdt.addSeconds(5);
+    gr_sis.setValue("run_start", gdt);
+    gr_sis.update();
+}
+]]></script>
+        <synchronous>false</synchronous>
+        <sys_class_name>sysevent_script_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-02-28 19:28:02</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>a3267adac3133210c134bf12b4013131</sys_id>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_name>Schedule New Import</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name>sysevent_script_action_a3267adac3133210c134bf12b4013131</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-02-28 21:38:31</sys_updated_on>
+    </sysevent_script_action>
+</record_update>
