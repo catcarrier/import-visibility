@@ -7,7 +7,7 @@
         <condition/>
         <conditional>false</conditional>
         <connection_override/>
-        <data_source display_value="Vendor Data Queue">5700f67cc317b290c134bf12b4013144</data_source>
+        <data_source display_value="Vendor Data">0d73a4a6c39f3210c134bf12b401311c</data_source>
         <entered_run_end/>
         <entered_run_start/>
         <entered_time/>
@@ -55,14 +55,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-02-28 19:18:47</sys_created_on>
         <sys_id>d7d3f296c3133210c134bf12b4013195</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_name>Vendor Data</sys_name>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
         <sys_policy/>
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
         <sys_update_name>scheduled_import_set_d7d3f296c3133210c134bf12b4013195</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-02-28 19:43:11</sys_updated_on>
+        <sys_updated_on>2026-03-01 20:02:29</sys_updated_on>
         <time_zone/>
         <upgrade_safe>false</upgrade_safe>
         <use_child_connection>false</use_child_connection>
