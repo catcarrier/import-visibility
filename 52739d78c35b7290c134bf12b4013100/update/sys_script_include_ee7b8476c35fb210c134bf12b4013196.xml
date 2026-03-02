@@ -19,7 +19,7 @@ VendorDataUtils.prototype = {
      * this data source with a run start after @relativeTo.
      */
     hasScheduledImportAfter: function(scope, dataSourceName, active, gdtRelativeTo) {
-        var dataSourceSysId = this._getDataSourceSysId(scope, dataSourceName);
+        var dataSourceSysId = this.getDataSourceSysId(scope, dataSourceName);
         var gr = new GlideRecord("scheduled_import_set");
         var query = "sys_scope=" + scope;
         query += "^data_source=" + dataSourceSysId;
@@ -36,10 +36,10 @@ VendorDataUtils.prototype = {
      * optionally delete from A
      */
     shiftAttachments(fromDataSourceName, toDataSourceName, removeOriginals) {
-        var from_sys_id = this._getDataSourceSysId(scope, fromDataSourceName);
+        var from_sys_id = this.getDataSourceSysId(scope, fromDataSourceName);
         if (!from_sys_id) throw "'From' data source not found.";
-		
-        var to_sys_id = this._getDataSourceSysId(scope, toDataSourceName);
+
+        var to_sys_id = this.getDataSourceSysId(scope, toDataSourceName);
         if (!to_sys_id) throw "'To' data source not found.";
 
         var gsa = new GlideSysAttachment();
@@ -53,21 +53,37 @@ VendorDataUtils.prototype = {
         }
     },
 
-    createScheduledImport: function(scope, dataSourceName, runStart) {
-		var ds_sys_id = this._getDataSourceSysId(scope, dataSourceName);
-		var gr = new GlideRecord("scheduled_import_set");
-		gr.initialize();
-		gr.setValue("active", true);
+    copyAttachment: function(gr_source, gr_dest) {
+        var gsa = new GlideSysAttachment();
+        var newAttachmentSysId = gsa.writeContentStream(
+            gr_dest,
+            gr_source.getValue('file_name'),
+            gr_source.getValue('content_type'),
+            gsa.getContentStream(gr_source.getValue('sys_id'))
+        );
+        return newAttachmentSysId;
+    },
 
-		
+    createScheduledImport: function(scope, name, dataSourceName, runStart, runType) {
+        var ds_sys_id = this.getDataSourceSysId(scope, dataSourceName);
 
+        var gr = new GlideRecord("scheduled_import_set");
+        gr.initialize();
+        gr.setValue("sys_scope", scope);
+        gr.setValue("active", true);
+        gr.setValue("advanced", false);
+        gr.setValue("data_source", ds_sys_id);
+        gr.setValue("name", name);
+        gr.setValue("run_start", runStart);
+        gr.setValue("run_type", runType);
+        gr.update();
     },
 
     /**
      * Given application scope (sys_id) and the name of 
      * a Data Source, return Data source's sys_id, or null.
      */
-    _getDataSourceSysId: function(scope, name) {
+    getDataSourceSysId: function(scope, name) {
         var result = null;
         var gr = new GlideRecord("sys_data_source");
         gr.addQuery("sys_scope", scope);
@@ -84,13 +100,13 @@ VendorDataUtils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-03-01 20:21:32</sys_created_on>
         <sys_id>ee7b8476c35fb210c134bf12b4013196</sys_id>
-        <sys_mod_count>12</sys_mod_count>
+        <sys_mod_count>17</sys_mod_count>
         <sys_name>VendorDataUtils</sys_name>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
         <sys_update_name>sys_script_include_ee7b8476c35fb210c134bf12b4013196</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-03-01 22:47:04</sys_updated_on>
+        <sys_updated_on>2026-03-02 05:41:40</sys_updated_on>
     </sys_script_include>
 </record_update>

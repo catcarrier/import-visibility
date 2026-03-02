@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_scope_privilege">
+    <sys_scope_privilege action="DELETE">
+        <operation>create</operation>
+        <source_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</source_scope>
+        <status>allowed</status>
+        <sys_class_name>sys_scope_privilege</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-02 03:33:26</sys_created_on>
+        <sys_id>a7dee1b6c35bf210c134bf12b4013119</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sys_data_source</sys_name>
+        <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name>sys_scope_privilege_a7dee1b6c35bf210c134bf12b4013119</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-02 03:33:26</sys_updated_on>
+        <target_name>sys_data_source</target_name>
+        <target_scope display_value="Global">global</target_scope>
+        <target_type>sys_db_object</target_type>
+    </sys_scope_privilege>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</application>
+        <file_path/>
+        <instance_id>b0385627ebf8e2d0e483f459bad0cd47</instance_id>
+        <instance_name>dev328090</instance_name>
+        <name>sys_scope_privilege_a7dee1b6c35bf210c134bf12b4013119</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_scope_privilege"><sys_scope_privilege action="INSERT_OR_UPDATE"><operation>create</operation><source_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</source_scope><status>allowed</status><sys_class_name>sys_scope_privilege</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-03-02 03:33:26</sys_created_on><sys_id>a7dee1b6c35bf210c134bf12b4013119</sys_id><sys_mod_count>0</sys_mod_count><sys_name>sys_data_source</sys_name><sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package><sys_policy/><sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope><sys_update_name>sys_scope_privilege_a7dee1b6c35bf210c134bf12b4013119</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-03-02 03:33:26</sys_updated_on><target_name>sys_data_source</target_name><target_scope display_value="Global">global</target_scope><target_type>sys_db_object</target_type></sys_scope_privilege></record_update>]]></payload>
+        <payload_hash>1237284939</payload_hash>
+        <record_name>sys_data_source</record_name>
+        <reverted_from/>
+        <source>741a9178c35b7290c134bf12b40131e5</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-02 03:33:26</sys_created_on>
+        <sys_id>2ffe29b6c35bf210c134bf12b40131d6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19cac9ba2110000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-02 03:33:26</sys_updated_on>
+        <type>Cross scope privilege</type>
+        <update_guid>ebfe29b6ff5bf210dfb333d74201d5d5</update_guid>
+        <update_guid_history>ebfe29b6ff5bf210dfb333d74201d5d5:1237284939</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-02 03:34:28</sys_created_on>
+        <sys_db_object display_value="" name="sys_scope_privilege">sys_scope_privilege</sys_db_object>
+        <sys_id>08b046090f05464e8d1c8d11cecb1499</sys_id>
+        <sys_metadata>a7dee1b6c35bf210c134bf12b4013119</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sys_data_source</sys_name>
+        <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_scope_delete display_value="">5656d4e9ed8d4ce2a2bcd58d1fa258a4</sys_scope_delete>
+        <sys_update_name>sys_scope_privilege_a7dee1b6c35bf210c134bf12b4013119</sys_update_name>
+        <sys_update_version display_value="sys_scope_privilege_a7dee1b6c35bf210c134bf12b4013119">2ffe29b6c35bf210c134bf12b40131d6</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-02 03:34:28</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
