@@ -35,25 +35,54 @@ VendorDataUtils.prototype = {
      * Copy all attachments from sys_data_source A to B, and 
      * optionally delete from A
      */
-    shiftAttachments(fromDataSourceName, toDataSourceName, removeOriginals) {
-        var from_sys_id = this.getDataSourceSysId(scope, fromDataSourceName);
-        if (!from_sys_id) throw "'From' data source not found.";
+    // shiftAttachments(fromDataSourceName, toDataSourceName, removeOriginals) {
+    //     var from_sys_id = this.getDataSourceSysId(scope, fromDataSourceName);
+    //     if (!from_sys_id) throw "'From' data source not found.";
 
-        var to_sys_id = this.getDataSourceSysId(scope, toDataSourceName);
-        if (!to_sys_id) throw "'To' data source not found.";
+    //     var to_sys_id = this.getDataSourceSysId(scope, toDataSourceName);
+    //     if (!to_sys_id) throw "'To' data source not found.";
 
-        var gsa = new GlideSysAttachment();
-        gsa.copy("sys_data_source", from_sys_id, "sys_data_source", to_sys_id);
+    //     var gsa = new GlideSysAttachment();
+    //     gsa.copy("sys_data_source", from_sys_id, "sys_data_source", to_sys_id);
 
-        if (removeOriginals) {
-            var gr = gsa.getAttachments("sys_data_source", from_sys_id);
-            while (gr.next()) {
-                gsa.deleteAttachment(gr.getValue("sys_id"));
-            }
-        }
-    },
+    //     if (removeOriginals) {
+    //         var gr = gsa.getAttachments("sys_data_source", from_sys_id);
+    //         while (gr.next()) {
+    //             gsa.deleteAttachment(gr.getValue("sys_id"));
+    //         }
+    //     }
+    // },
 
-    copyAttachment: function(gr_source, gr_dest) {
+	// copyAttachments: function(sourceTableName, sourceTableSysId, targetTableName, targetTableSysId) {
+	// 	var result = [];
+		
+	// 	// The row to copy the attachmens to
+	// 	var gr_target = new GlideRecord(targetTableName);
+	// 	gr_target.get(targetTableSysId);
+		
+	// 	// The existing attachments
+	// 	var gr_att = new GlideRecord("sys_attachment");
+	// 	gr_att.addQuery("table_name", sourceTableName);
+	// 	gr_att.addQuery("table_sys_id", sourceTableSysId);
+	// 	gr_att.query();
+	// 	while(gr_att.next()) {
+	// 		var new_sys_id = this.copyAttachment(gr_att, gr_target);
+	// 		result.push(new_sys_id);
+	// 	}
+	// 	return result;
+	// },
+
+	copyAttachments: function(gr_attachments, gr_target) {
+		var result = [];
+		while(gr_attachments.next()) {
+			var new_sys_id = this.copyAttachment(gr_attachments, gr_target);
+			result.push(new_sys_id);
+		}
+		return result;
+	},
+
+
+    copyAttachment: function(gr_source /* source att */, gr_dest /* gr to attach the new file to */) {
         var gsa = new GlideSysAttachment();
         var newAttachmentSysId = gsa.writeContentStream(
             gr_dest,
@@ -63,6 +92,17 @@ VendorDataUtils.prototype = {
         );
         return newAttachmentSysId;
     },
+
+	deleteAttachments: function(tableName, tableSysId) {
+		var delete_sys_ids = [];
+		var gr = new GlideRecord("sys_attachment");
+		gr.addQuery("table_name", tableName);
+		gr.addQuery("table_sys_id", tableSysId);
+		gr.query();
+		while(gr.next()) delete_sys_ids.push(gr.getValue("sys_id"));
+		var gsa = new GlideSysAttachment();
+		delete_sys_ids.forEach(e => gsa.deleteAttachment(e));
+	},
 
     createScheduledImport: function(scope, name, dataSourceName, runStart, runType) {
         var ds_sys_id = this.getDataSourceSysId(scope, dataSourceName);
@@ -78,6 +118,8 @@ VendorDataUtils.prototype = {
         gr.setValue("run_type", runType);
         gr.update();
     },
+
+
 
     /**
      * Given application scope (sys_id) and the name of 
@@ -100,13 +142,13 @@ VendorDataUtils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-03-01 20:21:32</sys_created_on>
         <sys_id>ee7b8476c35fb210c134bf12b4013196</sys_id>
-        <sys_mod_count>17</sys_mod_count>
+        <sys_mod_count>23</sys_mod_count>
         <sys_name>VendorDataUtils</sys_name>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
         <sys_update_name>sys_script_include_ee7b8476c35fb210c134bf12b4013196</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-03-02 05:41:40</sys_updated_on>
+        <sys_updated_on>2026-03-03 04:17:51</sys_updated_on>
     </sys_script_include>
 </record_update>

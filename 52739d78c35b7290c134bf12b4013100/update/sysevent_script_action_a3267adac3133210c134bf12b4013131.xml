@@ -6,27 +6,19 @@
         <event_name>x_42999_import_v_0.data_received</event_name>
         <name>Schedule New Import</name>
         <order>100</order>
-        <script><![CDATA[// Call a function to create a Scheduled Import for the oldest
-// oldest attachment on Vendor Data Queue; this should always
-// be the next file imported. It may not be the file whose 
-// arrival triggered the event that ran this script action.
-// Note that we ignore 'current' and any params.
+        <script><![CDATA[// Call a function to create a Scheduled Import for the attachment
+// given in @current. This is a newly arrived attachment on
+// data source Vendor Data Queue.
+queueNextImport(current);
 
-// First get the data surce.
-var scope = gs.getCurrentApplicationId();
-var ds_sys_id = new x_42999_import_v_0.VendorDataUtils().getDataSourceSysId(scope, "Vendor Data Queue");
-
-// Get the oldest attachment.
-var gr = new GlideRecord("sys_attachment");
-gr.addQuery("table_name", "sys_data_source");
-gr.addQuery("table_sys_id", ds_sys_id);
-gr.orderBy("sys_created_on");
-gr.setLimit(1);
-gr.query();
-if(!gr.next()) throw "No data source attachment found";
-queueNextImport(gr);
-
+/**
+ * @current  A file attachment newly arrived on data source Vendor Data Queue.
+ * 
+ */
 function queueNextImport(current) {
+    //var vendor_data_sys_id = "";
+    //var vendor_data_archive_sys_id = "";
+
     // A new data file has arrived and is parked on "Vendor Data Queue".
 
     // Queue the file up for import via data source "Vendor Data", unless...
@@ -39,13 +31,40 @@ function queueNextImport(current) {
     var activeOnly = true;
     var answer = util.hasScheduledImportAfter(scope, "Vendor Data", activeOnly, gdtNow);
     if (answer == true) {
-        gs.info("There is an existing scheduled import for this data. Exiting.");
+        gs.warn("There is an existing scheduled import for this data. Exiting.");
         return;
     }
 
     // Copy all attachments from "Vendor Data" to "Vendor Data Archive",
     // and remove originals
-    util.shiftAttachments("Vendor Data", "Vendor Data Archive", true);
+
+    // A gr of attachments to copy
+    //vendor_data_sys_id = util.getDataSourceSysId(scope, "Vendor Data");
+    var gr_attachments = new GlideRecord("sys_attachment");
+    gr_attachments.addQuery("table_name", "sys_data_source");
+    gr_attachments.addQuery("table_sys_id", util.getDataSourceSysId(scope, "Vendor Data"));
+    gr_attachments.query();
+
+    // gr to copy attachments to
+    var gr_target = new GlideRecord("sys_data_source");
+    gr_target.addQuery("table_sys_id", util.getDataSourceSysId(scope, "Vendor Data Archive"));
+	gr_target.setLimit(1);
+    gr_target.query();
+    var new_sys_ids = util.copyAttachments(
+        gr_attachments, 
+		gr_target
+    );
+
+    util.deleteAttachments("sys_data_source",  util.getDataSourceSysId(scope, "Vendor Data"));
+
+    // copy @current to Vendor Data and delete the original
+	gr_target = new GlideRecord("sys_data_source");
+    gr_target.addQuery("table_sys_id", util.getDataSourceSysId(scope, "Vendor Data"));
+	gr_target.setLimit(1);
+    gr_target.query();
+    util.copyAttachment(current, gr_target);
+
+	util.deleteAttachments("sys_data_source",  util.getDataSourceSysId(scope, "Vendor Data Queue"));
 
     // Create a Scheduled Data Import for Vendor Data, set it to run soon.
 
@@ -63,8 +82,8 @@ function queueNextImport(current) {
     var runType = "once";
     util.createScheduledImport(
         scope,
-        name,
-        "Vendor Data",
+        name, /* name of the import */
+        "Vendor Data", /* data source */
         runStart,
         runType);
 
@@ -76,7 +95,7 @@ function queueNextImport(current) {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>a3267adac3133210c134bf12b4013131</sys_id>
-        <sys_mod_count>27</sys_mod_count>
+        <sys_mod_count>32</sys_mod_count>
         <sys_name>Schedule New Import</sys_name>
         <sys_overrides/>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
@@ -84,6 +103,6 @@ function queueNextImport(current) {
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
         <sys_update_name>sysevent_script_action_a3267adac3133210c134bf12b4013131</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-03-02 05:38:34</sys_updated_on>
+        <sys_updated_on>2026-03-03 04:28:36</sys_updated_on>
     </sysevent_script_action>
 </record_update>
