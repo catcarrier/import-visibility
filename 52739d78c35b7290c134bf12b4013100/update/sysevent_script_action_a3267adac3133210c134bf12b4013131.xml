@@ -23,11 +23,14 @@ function queueNextImport(current) {
 
     // Queue the file up for import via data source "Vendor Data", unless...
 
+	gs.info("queueNextImport 1");
+
     // ...Exit if there is a Scheduled Data Import for this data source
     // with a future run date.
     var util = new x_42999_import_v_0.VendorDataUtils();
     var gdtNow = new GlideDateTime();
     var scope = gs.getCurrentApplicationId();
+	gs.info("scope is " + scope);
     var activeOnly = true;
     var answer = util.hasScheduledImportAfter(scope, "Vendor Data", activeOnly, gdtNow);
     if (answer == true) {
@@ -35,57 +38,74 @@ function queueNextImport(current) {
         return;
     }
 
+	gs.info("queueNextImport 2");
+
     // Copy all attachments from "Vendor Data" to "Vendor Data Archive",
     // and remove originals
 
     // A gr of attachments to copy
-    //vendor_data_sys_id = util.getDataSourceSysId(scope, "Vendor Data");
+gs.info("Vendor Data sys_id is " + util.getDataSourceSysId(scope, "Vendor Data"));
+
     var gr_attachments = new GlideRecord("sys_attachment");
     gr_attachments.addQuery("table_name", "sys_data_source");
     gr_attachments.addQuery("table_sys_id", util.getDataSourceSysId(scope, "Vendor Data"));
     gr_attachments.query();
+	
+	while(gr_attachments.next()) gs.info(gr_attachments.getValue("file_name"));
+
+	gs.info("queueNextImport 3");
 
     // gr to copy attachments to
-    var gr_target = new GlideRecord("sys_data_source");
-    gr_target.addQuery("table_sys_id", util.getDataSourceSysId(scope, "Vendor Data Archive"));
-	gr_target.setLimit(1);
-    gr_target.query();
-    var new_sys_ids = util.copyAttachments(
-        gr_attachments, 
-		gr_target
-    );
+    // var gr_target = new GlideRecord("sys_data_source");
+    // gr_target.addQuery("table_sys_id", util.getDataSourceSysId(scope, "Vendor Data Archive"));
+	// gr_target.setLimit(1);
+    // gr_target.query();
+    // var new_sys_ids = util.copyAttachments(
+    //     gr_attachments, 
+	// 	gr_target
+    // );
 
-    util.deleteAttachments("sys_data_source",  util.getDataSourceSysId(scope, "Vendor Data"));
+	//gs.info("queueNextImport 4");
+
+    //util.deleteAttachments("sys_data_source",  util.getDataSourceSysId(scope, "Vendor Data"));
+
+	//gs.info("queueNextImport 5");
 
     // copy @current to Vendor Data and delete the original
-	gr_target = new GlideRecord("sys_data_source");
-    gr_target.addQuery("table_sys_id", util.getDataSourceSysId(scope, "Vendor Data"));
-	gr_target.setLimit(1);
-    gr_target.query();
-    util.copyAttachment(current, gr_target);
+	// gr_target = new GlideRecord("sys_data_source");
+    // gr_target.addQuery("table_sys_id", util.getDataSourceSysId(scope, "Vendor Data"));
+	// gr_target.setLimit(1);
+    // gr_target.query();
+    // util.copyAttachment(current, gr_target);
 
-	util.deleteAttachments("sys_data_source",  util.getDataSourceSysId(scope, "Vendor Data Queue"));
+	//gs.info("queueNextImport 5");
+
+	//util.deleteAttachments("sys_data_source",  util.getDataSourceSysId(scope, "Vendor Data Queue"));
+
+	//gs.info("queueNextImport 6");
 
     // Create a Scheduled Data Import for Vendor Data, set it to run soon.
 
     // The import's name will reflect when the file was received.
-    // The run time may lag this, esp if muliple files are received
+    // The run time may lag this, esp if multiple files are received
     // about the same time.
-    var gr = new GlideRecord("sys_attachment");
-    gr.get(attachment_sys_id);
-    var name = "Vendor Data " + gr.getValue("sys_created_on");
+    //var name = "Vendor Data " + current.getValue("sys_created_on");
+
+	//gs.info("queueNextImport 7");
 
     // run time
-    var gdt = new GlideDateTime();
-    gdt.addSeconds(5);
-    var runStart = gdt.getDisplayValue();
-    var runType = "once";
-    util.createScheduledImport(
-        scope,
-        name, /* name of the import */
-        "Vendor Data", /* data source */
-        runStart,
-        runType);
+    // var gdt = new GlideDateTime();
+    // gdt.addSeconds(5);
+    // var runStart = gdt.getDisplayValue();
+    // var runType = "once";
+    // util.createScheduledImport(
+    //     scope,
+    //     name,
+    //     util.getDataSourceSysId(scope, "Vendor Data"),
+    //     runStart,
+    //     runType);
+
+	//gs.info("queueNextImport 8");
 
 }]]></script>
         <synchronous>false</synchronous>
@@ -95,7 +115,7 @@ function queueNextImport(current) {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>a3267adac3133210c134bf12b4013131</sys_id>
-        <sys_mod_count>32</sys_mod_count>
+        <sys_mod_count>46</sys_mod_count>
         <sys_name>Schedule New Import</sys_name>
         <sys_overrides/>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
@@ -103,6 +123,6 @@ function queueNextImport(current) {
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
         <sys_update_name>sysevent_script_action_a3267adac3133210c134bf12b4013131</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-03-03 04:28:36</sys_updated_on>
+        <sys_updated_on>2026-03-03 05:50:16</sys_updated_on>
     </sysevent_script_action>
 </record_update>
