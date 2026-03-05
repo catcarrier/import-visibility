@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_42999_import_v_0.AttachmentUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Move attachments from one row to another, and optionally delete the original</description>
+        <mobile_callable>false</mobile_callable>
+        <name>AttachmentUtils</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var AttachmentUtils = Class.create();
+AttachmentUtils.prototype = {
+    initialize: function() {},
+
+    getAttachmentCount: function(tableName, tableSysId) {
+        var total_attachments = 0;
+        var gr_agg = new GlideAggregate("sys_attachment");
+        gr_agg.addQuery("table_name", tableName);
+        gr_agg.addQuery("table_sys_id", tableSysId);
+		gr_agg.addAggregate("COUNT");
+        gr_agg.query();
+        gr_agg.next();
+        total_attachments = parseInt(gr_agg.getAggregate("COUNT"), 10);
+        return total_attachments;
+    },
+
+	// Return:
+	// [{ sysId, tableName, tableSysId }, ... ]
+	get:function(tableName, tableSysId) {
+		var objects = [];
+		var gr = new GlideRecord("sys_attachment");
+		gr.addQuery("table_name", tableName );
+		gr.addQuery("table_sys_id", tableSysId );
+		gr.query();
+		while(gr.hasNext()) {
+			gr.next();
+			objects.push({
+				"sysId":gr.getValue("sys_id"),
+				"tableName":tableName,
+				"tableSysId":tableSysId
+			});
+		}
+		return objects;
+	},
+
+
+    // objects: array representing existing attachments. Not a GlideRecord.
+	// toTableName: Table to shift these attachments to.
+	// toTableSysId: Record to shift these attachments to.
+	// dropOriginal: delete the originals
+    shift: function(objects, toTableName, toTableSysId, dropOriginal = true) {
+		var new_attachment_sys_ids = [];
+        var gsa = new GlideSysAttachment();
+        objects.forEach(function(e) {
+
+            // original
+            var gr_attachment = new GlideRecord("sys_attachment");
+            gr_attachment.get(e.sysId);
+
+			//copy to
+            var gr_target = new GlideRecord(toTableName);
+            gr_target.get(toTableSysId);
+            var new_attachment_sys_id = gsa.writeContentStream(
+                gr_target,
+                gr_attachment.getValue('file_name'),
+                gr_attachment.getValue('content_type'),
+                gsa.getContentStream(e.sysId)
+            );
+			new_attachment_sys_ids.push(new_attachment_sys_id);
+        });
+
+        if (dropOriginal) {
+            objects.forEach(function(e) {
+                gsa.deleteAttachment(e.sysId);
+            });
+        }
+		return new_attachment_sys_ids;
+    },
+
+
+    type: 'AttachmentUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-04 03:38:58</sys_created_on>
+        <sys_id>076ffb97c35b3a10c134bf12b4013140</sys_id>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_name>AttachmentUtils</sys_name>
+        <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name>sys_script_include_076ffb97c35b3a10c134bf12b4013140</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-05 03:32:58</sys_updated_on>
+    </sys_script_include>
+</record_update>

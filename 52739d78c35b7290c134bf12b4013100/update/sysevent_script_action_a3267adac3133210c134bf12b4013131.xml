@@ -9,18 +9,19 @@
         <script><![CDATA[// Create a Scheduled Import for the attachment just inserted,
 // unless there is already a scheduled import with a date 
 // in the future - in that case do nothing.
-queueNextImport(current, event);
+queueNextImport(event);
 
 /**
  * @current  A file attachment newly arrived on data source Vendor Data Queue.
  * 
  */
-function queueNextImport(current, event) {
+function queueNextImport(event /* parm1 = new attachment sys_id */ ) {
 
     // A new data file has arrived and is parked on data source
     // "Vendor Data Queue" (see business rule).
 
     // Queue the file up for import via data source "Vendor Data", unless...
+    var msgs = [];
 
     const app_id = "52739d78c35b7290c134bf12b4013100"; // "Import Visibility"
 
@@ -28,9 +29,7 @@ function queueNextImport(current, event) {
     const ds_vendor_data_sys_id = getDataSourceSysId(app_id, "Vendor Data");
     const ds_vendor_data_archive_sys_id = getDataSourceSysId(app_id, "Vendor Data Archive");
 
-    //gs.info("ds_vendor_data_queue_sys_id " + ds_vendor_data_queue_sys_id);
-    //gs.info("ds_vendor_data_sys_id " + ds_vendor_data_sys_id);
-    //gs.info("ds_vendor_data_archive_sys_id " + ds_vendor_data_archive_sys_id);
+    const vendorDataUtils = new VendorDataUtils();
 
     if (!ds_vendor_data_queue_sys_id) {
         gs.warn("Data Source 'Vendor Data Queue' not found.");
@@ -45,141 +44,92 @@ function queueNextImport(current, event) {
         return;
     }
 
-    //gs.info("queueNextImport 1: Checking for an attachment on Vendor Data Queue");
+    msgs.push("Checking for an attachment on Vendor Data Queue.");
 
     // Exit if there is no attachment on Vendor Data Queue
     // This should never happen, as the trigger event is raised by the arrival of a file
-    var gr_agg = new GlideAggregate("sys_attachment");
-    gr_agg.addQuery("table_name", "sys_data_source");
-    gr_agg.addQuery("table_sys_id", ds_vendor_data_queue_sys_id);
-    gr_agg.query();
-    gr_agg.next();
-    var total_attachments = gr_agg.addAggregate("COUNT");
-    total_attachments = parseInt(total_attachments, 10);
+    var total_attachments = new AttachmentUtils().getAttachmentCount("sys_data_source", ds_vendor_data_queue_sys_id);
+
+    msgs.push("Found " + total_attachments + " attachment on Vendor Data Queue");
+
     if (total_attachments == 0) {
-        gs.warn("No attachment found on Vendor Data Queue. Exiting.");
+        msgs.push("No attachment found on Vendor Data Queue. Exiting.");
+        gs.warn(msgs.join("\n"));
         return;
     }
 
-    //gs.info("queueNextImport 2: Checking for an existing scheduled import");
+    msgs.push("Checking for an existing scheduled import");
 
     // Exit if there is a Scheduled Data Import for Vendor Data
     // with a future run date.
-    var gr_scheduled_import = new GlideRecord("scheduled_import_set");
-    var query = "sys_scope=" + app_id;
-    query += "^data_source=" + ds_vendor_data_sys_id;
-    query += "^active=true";
-    query += "^run_start>" + new GlideDateTime();
-    gr_scheduled_import.addEncodedQuery(query);
-    gr_scheduled_import.setLimit(1);
-    gr_scheduled_import.query();
-    if (gr_scheduled_import.hasNext()) {
-        gs.warn("There is an existing scheduled import for Vendor Data. Exiting.");
+    var gdtRelativeTo = new GlideDateTime();
+    if (vendorDataUtils.hasScheduledImportAfter(app_id, ds_vendor_data_sys_id, gdtRelativeTo)) {
+        msgs.push("There is an existing scheduled import for Vendor Data. Exiting.");
+        gs.warn(msgs.join("\n"));
         return;
-    }
+    } else {
+		msgs.push("No scheduled import found for Vendor Data. Continuing.");
+	}
 
     // Check for existing attachments on Vendor Data, and move them to archive
-    gr_agg = new GlideAggregate("sys_attachment");
-    gr_agg.addQuery("table_name", "sys_data_source");
-    gr_agg.addQuery("table_sys_id", ds_vendor_data_sys_id);
-    gr_agg.addAggregate("COUNT");
-    gr_agg.query();
-    gr_agg.next();
-    total_attachments = parseInt(gr_agg.getAggregate("COUNT"), 10);
-    if (total_attachments > 0) {
+    total_attachments = new AttachmentUtils().getAttachmentCount("sys_data_source", ds_vendor_data_sys_id);
 
-        gs.info("queueNextImport 3: Copying attachments from Vendor Data to Archive");
+    msgs.push("Found " + total_attachments + " attachments on Vendor Data");
+
+    if (total_attachments > 0) {
+        msgs.push("Copying attachments from Vendor Data to Archive");
 
         // Copy all attachments from "Vendor Data" to "Vendor Data Archive",
         // and remove originals. This gets any older attachment off the
         // Vendor Data data source.
 
-        // A gr of attachments to copy
-        var gr_attachment = new GlideRecord("sys_attachment");
-        gr_attachment.addQuery("table_name", "sys_data_source");
-        gr_attachment.addQuery("table_sys_id", ds_vendor_data_sys_id);
-        gr_attachment.query();
+        // [{ sysId, tableName, tableSysId }, ... ]
+        var objects = new AttachmentUtils().get("sys_data_source", ds_vendor_data_sys_id);
 
-        // gr containing the record (a Data Source) we will copy attachments to
-        var gr_target = new GlideRecord("sys_data_source");
-        gr_target.get(ds_vendor_data_archive_sys_id);
+        msgs.push("objects to be shifted from Vendor Data to archive:");
+        msgs.push(JSON.stringify(objects));
 
-        // Copy the attachments, then delete
-        var attachments_to_delete = [];
-        var gsa = new GlideSysAttachment();
-        while (gr_attachment.hasNext()) {
-            gr_attachment.next();
-            gs.info("capturing attachment sys_id " + gr_attachment.getValue("sys_id") + " for later deletion.");
-            attachments_to_delete.push(gr_attachment.getValue("sys_id"));
-            gsa.writeContentStream(
-                gr_target,
-                gr_attachment.getValue('file_name'),
-                gr_attachment.getValue('content_type'),
-                gsa.getContentStream(gr_attachment.getValue('sys_id'))
-            );
-        }
+        var new_attachment_sys_ids = new AttachmentUtils().shift(objects, "sys_data_source", ds_vendor_data_archive_sys_id, true);
 
-        if (attachments_to_delete.length > 0) {
-            // gs.info("queueNextImport 4 deleting " + attachments_to_delete.length + " existing attachments from Vendor Data");
-            attachments_to_delete.forEach(
-                function(e) {
-                    gs.info("queueNextImport 4 deleting " + e);
-
-                    var gr_att = new GlideRecord("sys_attachment");
-                    if (gr_att.get(e)) {
-                        gs.info("queueNextImport 4 attachment found, ok to delete");
-                    } else {
-                        gs.info("queueNextImport 4 attachment not found!");
-                    }
-
-                    gsa.deleteAttachment(e);
-                }
-            );
-        }
-
+		msgs.push("New attachments on archive: " + JSON.stringify(new_attachment_sys_ids));
     }
 
-    gs.info("queueNextImport 5: Copying current to Vendor Data");
+    // Now shift the newly arrived attachment from Vendor Data Queue to Vendor Data,
+    // and delete the original. Note the method returns an array but there will be
+	// just one element
+    objects = new AttachmentUtils()
+        .get("sys_data_source", ds_vendor_data_queue_sys_id)
+        .filter(e => e.sysId == event.parm1);
 
-    // Copy @current to Vendor Data, and delete
-    // gr_target = new GlideRecord("sys_data_source");
-    // gr_target.get(ds_vendor_data_sys_id);
-    // gsa.writeContentStream(
-    //     gr_target,
-    //     gr_attachment.getValue('file_name'),
-    //     gr_attachment.getValue('content_type'),
-    //     gsa.getContentStream(current.getValue('sys_id'))
-    // );
+	msgs.push("Object to be shifted from Vendor Data Queue to Vendor Data: " + JSON.stringify(objects) );
 
-    // gs.info("queueNextImport 6: Deleting 'current' from Queue");
+    new_attachment_sys_ids = new AttachmentUtils().shift(objects, "sys_data_source", ds_vendor_data_sys_id, true);
 
-    // var created_on = current.getValue("sys_created_on");
+	msgs.push("New attachments: " + JSON.stringify(new_attachment_sys_ids));
 
-    // gsa.deleteAttachment(current.getValue("sys_id"));
-
-    // gs.info("queueNextImport 7: Setting up scheduled import");
+    msgs.push("Setting up scheduled import");
 
     // Create a Scheduled Data Import for Vendor Data, set it to run soon.
 
     // The import's name will reflect when the file was received.
     // The run time may lag this, esp if multiple files are received
     // about the same time.
-    // var name = "Vendor Data " + created_on;
-    // var gdt = new GlideDateTime();
-    // gdt.addSeconds(5);
+    var gdt = new GlideDateTime();
+    gdt.addSeconds(1);
+    gr_scheduled_import = new GlideRecord("scheduled_import_set");
+    gr_scheduled_import.initialize();
+    gr_scheduled_import.setValue("sys_scope", app_id);
+    gr_scheduled_import.setValue("active", true);
+    gr_scheduled_import.setValue("advanced", false);
+    gr_scheduled_import.setValue("data_source", ds_vendor_data_sys_id);
+    gr_scheduled_import.setValue("name", "Vendor Data " + gdt.getDisplayValue());
+    gr_scheduled_import.setValue("run_start", gdt.getDisplayValue());
+    gr_scheduled_import.setValue("run_type", "once");
+    gr_scheduled_import.update();
 
-    // gr_scheduled_import = new GlideRecord("scheduled_import_set");
-    // gr_scheduled_import.initialize();
-    // gr_scheduled_import.setValue("sys_scope", app_id);
-    // gr_scheduled_import.setValue("active", true);
-    // gr_scheduled_import.setValue("advanced", false);
-    // gr_scheduled_import.setValue("data_source", ds_vendor_data_sys_id);
-    // gr_scheduled_import.setValue("name", name);
-    // gr_scheduled_import.setValue("run_start", gdt.getDisplayValue());
-    // gr_scheduled_import.setValue("run_type", "once");
-    // gr_scheduled_import.update();
 
-    // gs.info("queueNextImport 8: Done");
+    msgs.push("Done");
+    gs.info(msgs.join("\n"));
 }
 
 function getDataSourceSysId(app_id, name) {
@@ -199,7 +149,7 @@ function getDataSourceSysId(app_id, name) {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>a3267adac3133210c134bf12b4013131</sys_id>
-        <sys_mod_count>76</sys_mod_count>
+        <sys_mod_count>97</sys_mod_count>
         <sys_name>Schedule New Import</sys_name>
         <sys_overrides/>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
@@ -207,6 +157,6 @@ function getDataSourceSysId(app_id, name) {
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
         <sys_update_name>sysevent_script_action_a3267adac3133210c134bf12b4013131</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-03-04 03:00:38</sys_updated_on>
+        <sys_updated_on>2026-03-05 03:48:48</sys_updated_on>
     </sysevent_script_action>
 </record_update>
