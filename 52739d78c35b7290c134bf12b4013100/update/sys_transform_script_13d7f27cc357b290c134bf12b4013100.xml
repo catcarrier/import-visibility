@@ -23,11 +23,15 @@
         .getData()
         .filter(e => e.key && e.value);
 
+    var unique_location_codes = locations
+        .map(e => e.key)
+        .filter((item, index) => arr.indexOf(item) === index);
+
     // The resolver returns an object describing whether
     // that location-name (@value, above) maps to:
-	// a Location reference (valid),
-	// or to nothing (invalid),
-	// or to multiple references (also invalid).
+    // a Location reference (valid),
+    // or to nothing (invalid),
+    // or to multiple references (also invalid).
     var resolver = new LocationResolver();
 
     // Loop through the rows, passing each u_location to 
@@ -41,30 +45,35 @@
     while (gr_is_row.hasNext()) {
         gr_is_row.next();
 
-		// location in the source is actually a code, like "621-6A".
-        var location_code = gr_is_row.getValue("u_location")||"";
+        // location in the source is actually a code, like "621-6A".
+        var location_code = gr_is_row.getValue("u_location") || "";
 
-		// The value the user mapped that code to is in 'locations' above.
-		// That's just the content of the Locations spreadhseet, as 
-		// an array of objects. The resolver figures out if that 
-		// user-supplied value can be mapped to a Location reference.
+        // The value the user mapped that code to is in 'locations' above.
+        // That's just the content of the Locations spreadhseet, as 
+        // an array of objects. The resolver figures out if that 
+        // user-supplied value can be mapped to a Location reference.
 
-		// TODO
-        // We already checked, in a previous script, that
-        // each location code in the source file is listed 
-		// in the location code/Location name map, so we
-        // can skip checking that here
-
-        var locationName = locations[location_code];
-        var response = resolver.resolve(locationName, false);
-        if (response.valid) {
-            gr_is_row.setValue("u_location_ref", response.refs[0].sys_id);
+        // Check that the location code from the source file
+        // matches a key from "locations". If it does not,
+        // then there is nothing to pass to the resolver.
+        if (unique_location_codes.indexOf(location_code) == -1) {
+            gr_is_row.setValue("u_skip", true);
+            gr_is_row.setValue("u_skip_reason", location_code + " does not match a location code.");
             gr_is_row.update();
         } else {
-            gr_is_row.setValue("u_skip", true);
-            gr_is_row.setValue("u_skip_reason", response.message);
-            gr_is_row.update();
+            var locationName = locations[location_code];
+            var response = resolver.resolve(locationName, false);
+            if (response.valid) {
+                gr_is_row.setValue("u_location_ref", response.refs[0].sys_id);
+                gr_is_row.update();
+            } else {
+                gr_is_row.setValue("u_skip", true);
+                gr_is_row.setValue("u_skip_reason", response.message);
+                gr_is_row.update();
+            }
         }
+
+
 
     }
 
@@ -73,14 +82,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-02-24 03:44:43</sys_created_on>
         <sys_id>13d7f27cc357b290c134bf12b4013100</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>9</sys_mod_count>
         <sys_name>onStart</sys_name>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
         <sys_policy/>
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
         <sys_update_name>sys_transform_script_13d7f27cc357b290c134bf12b4013100</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-03-06 04:53:05</sys_updated_on>
+        <sys_updated_on>2026-03-06 05:20:39</sys_updated_on>
         <when>onStart</when>
     </sys_transform_script>
 </record_update>
