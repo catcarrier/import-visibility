@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="cdeb3938c39f7290c134bf12b4013155" extends="sys_import_set_row" label="Vendor Hardware Rows" max_length="40" name="x_42999_import_v_0_vendor_hardware_rows" type="collection">
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=State" label="State" max_length="40" name="u_state" type="string"/>
         <element label="Serial number" max_length="40" name="u_serial_number" type="string"/>
         <element label="Asset tag" max_length="40" name="u_asset_tag" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Model" label="Model" max_length="40" name="u_model" type="string"/>
         <element label="Skip" max_length="255" name="u_skip" type="boolean"/>
         <element label="Location - Source" max_length="40" name="u_location" type="string"/>
         <element label="Part ID" max_length="40" name="u_part_id" type="string"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sys_transform_script">
     <sys_transform_script action="INSERT_OR_UPDATE">
-        <active>false</active>
+        <active>true</active>
         <map display_value="Vendor Data">dbc032fcc317b290c134bf12b4013105</map>
         <order>250</order>
         <script><![CDATA[(function runTransformScript(source, map, log, target /*undefined onStart*/ ) {
@@ -17,16 +17,17 @@
     //
     // [{
     //    "key": "AURORA",
-    //    "value": "808 N Route 59, Aurora,IL
+    //    "value": "808 N Route 59, Aurora,IL"
     //  }, ...]
     var locations = new BaseDataSourceReader(gs.getCurrentScopeName(), "Locations")
         .getData()
         .filter(e => e.key && e.value);
 
     // The resolver returns an object describing whether
-    // that location-name (@value, above) maps to a Location
-    // reference (valid), or to nothing (invalid), or to 
-	// multiple references (also invalid).
+    // that location-name (@value, above) maps to:
+	// a Location reference (valid),
+	// or to nothing (invalid),
+	// or to multiple references (also invalid).
     var resolver = new LocationResolver();
 
     // Loop through the rows, passing each u_location to 
@@ -41,7 +42,12 @@
         gr_is_row.next();
 
 		// location in the source is actually a code, like "621-6A".
-        var location_code = gr_is_row.getValue("u_location");
+        var location_code = gr_is_row.getValue("u_location")||"";
+
+		// The value the user mapped that code to is in 'locations' above.
+		// That's just the content of the Locations spreadhseet, as 
+		// an array of objects. The resolver figures out if that 
+		// user-supplied value can be mapped to a Location reference.
 
 		// TODO
         // We already checked, in a previous script, that
@@ -67,14 +73,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-02-24 03:44:43</sys_created_on>
         <sys_id>13d7f27cc357b290c134bf12b4013100</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name>onStart</sys_name>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
         <sys_policy/>
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
         <sys_update_name>sys_transform_script_13d7f27cc357b290c134bf12b4013100</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-03-02 05:04:16</sys_updated_on>
+        <sys_updated_on>2026-03-06 04:53:05</sys_updated_on>
         <when>onStart</when>
     </sys_transform_script>
 </record_update>
