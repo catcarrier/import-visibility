@@ -1,73 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sys_transform_script">
     <sys_transform_script action="INSERT_OR_UPDATE">
-        <active>true</active>
+        <active>false</active>
         <map display_value="Vendor Data">dbc032fcc317b290c134bf12b4013105</map>
         <order>150</order>
         <script><![CDATA[(function runTransformScript(source, map, log, target /*undefined onStart*/ ) {
-        // Populate Model based on Part id, or set
-        // skip to true if no Model can be found.
+    // Populate Model based on Part id, or set
+    // skip to true if no Model can be found.
 
-        // User-supplied mapping of vendor part ids to Model-names,
-        // filtered down to only entries where both key and value 
-        // are populated.
-        // The model-name may be a partial name.
-        //
-        // [{
-        //    "key": "CGX-13",
-        //    "value": "Cyberpower Gamer Xtreme 1311"
-        //  }, ...]
-        var models = new BaseDataSourceReader(gs.getCurrentScopeName(), "Models")
-            .getData()
-            .filter(e => e.key && e.value);
+    // User-supplied mapping of vendor part ids to Model-names,
+    // filtered down to only entries where both key and value 
+    // are populated.
+    // The model-name may be a partial name.
+    //
+    // [{
+    //    "key": "CGX-13",
+    //    "value": "Cyberpower Gamer Xtreme 1311"
+    //  }, ...]
+    //
+    var models = new BaseDataSourceReader(gs.getCurrentScopeName(), "Models")
+        .getData()
+        .filter(e => e.key && e.value);
 
-        // The resolver returns an object describing whether that
-        // model-name (@value, above) maps to a Model(valid), or to 
-        // nothing (invalid), or to multiple models (also invalid).
-        var resolver = new ModelResolver("cmdb_model", "name");
+    // Reduce that array to an object to make it simple to 
+    // resolve a given key to a value.
+    // 
+	// Note that if a key is duplicated, we take only the last instance,
+	// and that is the @value that gets passed to the resolver.
+    // Duplicates must be remediated elsewhere.
+    models = models.reduce((acc, e) => {
+        acc[e.key] = e.value;
+        return acc;
+    }, {});
 
-        // Loop through the rows, passing each u_part_id to 
-        // the resolver. If the resolver returns a good reference 
-        // to a Model, populate that reference into the row, otherwise
-        // mark the row skipped.
-        var gr_is_row = new GlideRecord(source.getTableName());
-        gr_is_row.addQuery("sys_import_set", import_set.sys_id);
-        gr_is_row.addQuery("u_skip", false);
-        gr_is_row.query();
-        while (gr_is_row.hasNext()) {
-            gr_is_row.next();
+    // The resolver returns an object describing whether that
+    // model-name (@value, above) maps to a Model(valid), or to 
+    // nothing (invalid), or to multiple models (also invalid).
+    var resolver = new ModelResolver("cmdb_model", "name");
 
-            var part_id = gr_is_row.getValue("u_part_id");
+    // Loop through the rows, passing each u_part_id to 
+    // the resolver. If the resolver returns a good reference 
+    // to a Model, populate that reference into the row, otherwise
+    // mark the row skipped.
+    var gr_is_row = new GlideRecord(source.getTableName());
+    gr_is_row.addQuery("sys_import_set", import_set.sys_id);
+    gr_is_row.addQuery("u_skip", false);
+    gr_is_row.query();
+    while (gr_is_row.hasNext()) {
+        gr_is_row.next();
 
-            // We already checked, in a previous script, that
-            // each part id is listed in the part id/Model map, so we
-            // can skip checking that here
+        var part_id = gr_is_row.getValue("u_part_id");
 
-            var modelName = models[part_id];
-            var response = resolver.resolve(modelName, false);
-            if (response.valid) {
-                gr_is_row.setValue("u_model_ref", response.refs[0].sys_id);
-                gr_is_row.update();
-            } else {
-                gr_is_row.setValue("u_skip", true);
-                gr_is_row.setValue("u_skip_reason", response.message);
-                gr_is_row.update();
-            }
+        // We already checked, in a previous script, that
+        // each part id is listed in the part id/Model map, so we
+        // can skip checking that here
 
+        var modelName = models[part_id];
+        var response = resolver.resolve(modelName, false);
+        if (response.valid) {
+            gr_is_row.setValue("u_model_ref", response.refs[0].sys_id);
+            gr_is_row.update();
+        } else {
+            gr_is_row.setValue("u_skip", true);
+            gr_is_row.setValue("u_skip_reason", response.message);
+            gr_is_row.update();
         }
+
+    }
 
 })(source, map, log, target);]]></script>
         <sys_class_name>sys_transform_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-02-24 03:40:28</sys_created_on>
         <sys_id>3a86f6b8c357b290c134bf12b401319f</sys_id>
-        <sys_mod_count>9</sys_mod_count>
+        <sys_mod_count>12</sys_mod_count>
         <sys_name>onStart</sys_name>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
         <sys_policy/>
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
         <sys_update_name>sys_transform_script_3a86f6b8c357b290c134bf12b401319f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-03-06 03:55:16</sys_updated_on>
+        <sys_updated_on>2026-03-09 04:06:25</sys_updated_on>
         <when>onStart</when>
     </sys_transform_script>
 </record_update>
