@@ -1,0 +1,1110 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_hub_flow">
+    <sys_hub_flow action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <acls/>
+        <active>true</active>
+        <annotation/>
+        <attributes>browserActivatedIn=chrome,integrationActivatedIn=standalone,labelCacheCleanUpExecuted=true,timeFromCreateToActivate=1864000,viewActivatedIn=naturalLanguage</attributes>
+        <authored_on_release_version>28100</authored_on_release_version>
+        <callable_by_client_api>false</callable_by_client_api>
+        <category/>
+        <copied_from/>
+        <copied_from_name/>
+        <description>Return the run_start of the scheduled import passed in as a param</description>
+        <display_name_after_preview/>
+        <flow_priority>MEDIUM</flow_priority>
+        <generation_source/>
+        <internal_name>get_scheduled_import_run_start</internal_name>
+        <label_cache>[{"name":"subflow.scheduled_import_table","label":"Input➛Scheduled Import Table","reference":"","reference_display":"","type":"string","base_type":"string","parent_table_name":null,"column_name":"","choices":[{"label":null,"value":null,"order":0.0}],"usedInstances":{"aa248267-1c1c-4bb6-bd9a-9f0a2cbff99c":["table"],"eb953557-fa24-494b-8a0a-72edc4582111":["table"],"1ae6fbd9-e7bf-4f31-8e42-4924c7ba7614":["table"],"1bc57c23-6fd8-470d-8aa1-5cc417b3690f":["table"],"da236663-83a8-461f-ae51-3c7f4f7c0592":["table"]},"attributes":{"sourceId":"","uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","sourceUiUniqueId":"","sourceType":"","uiType":"string","uiUniqueId":"b604b621-e58a-4d8e-a7a8-5009c71e6f34"}},{"name":"da236663-83a8-461f-ae51-3c7f4f7c0592.Record.run_start","label":"2 - Look Up Record➛Scheduled Data Import Record➛Starting (run_start)","reference":"","reference_display":"Starting (run_start)","type":"glide_date_time","base_type":"glide_date_time","parent_table_name":"scheduled_import_set","column_name":"run_start","choices":null,"usedInstances":{},"attributes":null},{"name":"1bc57c23-6fd8-470d-8aa1-5cc417b3690f.Records","label":"4➛Records","reference":null,"reference_display":"Records","type":"records","base_type":"records","parent_table_name":null,"column_name":null,"choices":null,"usedInstances":{},"attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}}]</label_cache>
+        <master_snapshot>a41663e5c36ff610c134bf12b40131ad</master_snapshot>
+        <master_snapshot_digest/>
+        <name>Get Scheduled Import Run Start</name>
+        <natlang/>
+        <outputs/>
+        <pre_compiled>false</pre_compiled>
+        <remote_trigger_id/>
+        <run_as>user</run_as>
+        <run_with_roles/>
+        <sc_callable>false</sc_callable>
+        <show_draft_actions>false</show_draft_actions>
+        <show_triggered_flows>false</show_triggered_flows>
+        <status>draft</status>
+        <substatus/>
+        <sys_class_name>sys_hub_flow</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 00:56:09</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>a741a36dc32ff610c134bf12b40131bb</sys_id>
+        <sys_mod_count>57</sys_mod_count>
+        <sys_name>Get Scheduled Import Run Start</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name>sys_hub_flow_a741a36dc32ff610c134bf12b40131bb</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:50:12</sys_updated_on>
+        <type>subflow</type>
+        <updation_source/>
+        <version>2</version>
+        <version_record display_value="Created 2026-03-10 18:50:04">c5ade3e5c3aff610c134bf12b40131c5</version_record>
+    </sys_hub_flow>
+    <sys_translated_text action="delete_multiple" query="documentkey=a741a36dc32ff610c134bf12b40131bb"/>
+    <sys_variable_value action="delete_multiple" query="document_key=a741a36dc32ff610c134bf12b40131bb"/>
+    <sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_flow_output_a741a36dc32ff610c134bf12b40131bb^id=a741a36dc32ff610c134bf12b40131bb"/>
+    <sys_hub_flow_stage action="delete_multiple" query="flow=a741a36dc32ff610c134bf12b40131bb"/>
+    <sys_flow_cat_variable_model action="delete_multiple" query="id=a741a36dc32ff610c134bf12b40131bb^sys_idNOT INe741a36dc32ff610c134bf12b40131bc"/>
+    <sys_flow_cat_variable_model action="INSERT_OR_UPDATE">
+        <id>a741a36dc32ff610c134bf12b40131bb</id>
+        <name>Get Scheduled Import Run Start</name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 00:56:09</sys_created_on>
+        <sys_id>e741a36dc32ff610c134bf12b40131bc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 00:56:09</sys_updated_on>
+    </sys_flow_cat_variable_model>
+    <sys_flow_cat_variable action="delete_multiple" query="flow_catalog_model=e741a36dc32ff610c134bf12b40131bc"/>
+    <sys_hub_flow_input action="delete_multiple" query="model=a741a36dc32ff610c134bf12b40131bb^sys_idNOT IN0b3a6721c3aff610c134bf12b401313b,873a6721c3aff610c134bf12b4013141"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=string,uiTypeLabel=String,uiUniqueId=ab21bb83-85fc-493d-9685-ae42e82d048a</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>scheduled_import_sysid</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="String">string</internal_type>
+        <label>Scheduled Import Sysid</label>
+        <mandatory>true</mandatory>
+        <max_length>65000</max_length>
+        <model display_value="Get Scheduled Import Run Start">a741a36dc32ff610c134bf12b40131bb</model>
+        <model_id>a741a36dc32ff610c134bf12b40131bb</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_a741a36dc32ff610c134bf12b40131bb</name>
+        <next_element/>
+        <order>2</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:35:11</sys_created_on>
+        <sys_id>0b3a6721c3aff610c134bf12b401313b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:35:11</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=0b3a6721c3aff610c134bf12b401313b"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=string,uiTypeLabel=String,uiUniqueId=b604b621-e58a-4d8e-a7a8-5009c71e6f34</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>scheduled_import_table</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="String">string</internal_type>
+        <label>Scheduled Import Table</label>
+        <mandatory>true</mandatory>
+        <max_length>65000</max_length>
+        <model display_value="Get Scheduled Import Run Start">a741a36dc32ff610c134bf12b40131bb</model>
+        <model_id>a741a36dc32ff610c134bf12b40131bb</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_a741a36dc32ff610c134bf12b40131bb</name>
+        <next_element/>
+        <order>1</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:35:11</sys_created_on>
+        <sys_id>873a6721c3aff610c134bf12b4013141</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:35:11</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=873a6721c3aff610c134bf12b4013141"/>
+    <sys_hub_flow_output action="delete_multiple" query="model=a741a36dc32ff610c134bf12b40131bb^sys_idNOT IN2802afadc32ff610c134bf12b40131d4"/>
+    <sys_hub_flow_output action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=glide_date_time,uiTypeLabel=Date/Time,uiUniqueId=e979c979-b14c-4076-97ac-31267acfd1e3</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>run_start</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_link/>
+        <internal_type display_value="">glide_date_time</internal_type>
+        <label>Run Start</label>
+        <mandatory>false</mandatory>
+        <max_length>65000</max_length>
+        <model display_value="Get Scheduled Import Run Start">a741a36dc32ff610c134bf12b40131bb</model>
+        <model_id>a741a36dc32ff610c134bf12b40131bb</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_output_a741a36dc32ff610c134bf12b40131bb</name>
+        <next_element/>
+        <order>1</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_output</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 00:59:14</sys_created_on>
+        <sys_id>2802afadc32ff610c134bf12b40131d4</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:16:58</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_output>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=2802afadc32ff610c134bf12b40131d4"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=a741a36dc32ff610c134bf12b40131bb"/>
+    <sys_hub_trigger_instance_v2 action="delete_multiple" query="flow=a741a36dc32ff610c134bf12b40131bb"/>
+    <sys_hub_action_instance_v2 action="delete_multiple" query="flow=a741a36dc32ff610c134bf12b40131bb^sys_idNOT IN87baa761c3aff610c134bf12b401310a"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Look Up Records">43400a1587003300663ca1bb36cb0b4b</action_type>
+        <action_type_parent/>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot/>
+        <display_text/>
+        <flow display_value="Get Scheduled Import Run Start">a741a36dc32ff610c134bf12b40131bb</flow>
+        <generation_source/>
+        <order>1</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:37:22</sys_created_on>
+        <sys_id>87baa761c3aff610c134bf12b401310a</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:49:41</sys_updated_on>
+        <ui_id>1bc57c23-6fd8-470d-8aa1-5cc417b3690f</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+VX32/bNhD+Vwg+poYi1U6auU9BsmAD2gaoi7zUhUCJlM2NojSScuIY/t97/CHZs53ULlzAw54EHo933919d6S+LjCneIjjYhDHJLm4ehfH/X4cX172c5JkWf8yz+Ls4jfcw5KUDDR1pUxq5jUD0YyIppMRnYOIcl0LMn8IOwSZCj2DPJ9yQRWTePj1Ww/XRIE1wxQeLja29oUjSMYEqI7AN/ri8eyA6D5D8FHxvF1/CEdvWmGlqIXS72H2ZJikDDAURGjWwyWRlJhKzTuJYoTeS7ESTLk0YA1b5SfNn8Ff/63VKxhElTO/1y3TkCIvLm6JISOjmtw0Kqh6sBrysejC7BK5I+cBfrzsrfSfrT7Z1Kds/UCyhHxTVpBGmJuf85kc6vOt9ekDvK8Nr6DquG/rQjLRhl+JppSffC1xh/BhB9n8zu0LnGs0JJvVtqC2QqFcxWhaPX5uq3HHpcMVNkWVE9GtiDGKZ42xeVnggqYFZ4KmXAourScom6UPE6wED2lJ6prLSVqrasadVYiljCYCFlEhqkebCz6REclt5BEQi0R3IL914geiuM3CRzADh3vW4RSOBn+pzhWvTfrI6YSZlfdWi1bmkYi/d+0HxqVtoVx4eNnDeq5vBNF6lWygafpPY3PgUx+yl7pCuSMOxTVEMGMhUZYDrm3zd6+27cVGi/pCr/Fle34cPDn2gNBm4d4yEmXzl1CF0eFr7jT+PT7u7Ab65Ddaeh9thFzFxxkhu1p8uwUP6sDt1rJU++901uHE97n5AfsHr15al8mKZ1DkVDENKdVr7E+26Z8czP89QLT8/0ie0OcOxU5ooQWAnWziRtI6///spIH8g6ORf3C65E/iOH7x6kl6fvfIN8+ptMGPOuDq9WdbvKJZXknKLcb1BjjC+N8DQUv/m3UIu2C1T8dN2YddBtr30BFbID7dJjj6DXAqDH9h0PvovMwxb1V6WL2mixuwXsClRvFyuWejDLIVIz2gVY8sFrrJbCIinU8ZbQSDW7Os3R+PVV0uf3kXOXhtF30J+Dbght5xy11vJ3ds4+0U/z/fTqd5OQAgLoAhnlWprhrlUjlLc9Fot6GI1N7W8a6S9SYLSd3srw09fH42lmdn1zmURyMbz/m1A4VsgKjRkBNkpgzZ/yArqbK/WG4iNHIGUAnRIMWg/BIR5NosQtai/z2QTZnBh2tUFYVmBv4X0JsEcYl+V6pS6A8gqLAuRsyn1YGZES4cwytHEo0C6VBTA7AaHlgO1hhHY4xIAels4dnj7ImUtWBDQKOQnkJvQ4lyNG6gG2mrGAEHJvD8ivJGAWVM5BTd37aNC7y+t7ZCZJ0VKzwfyyAe27KlnHrTgOVNZz6MGXiS143R29MGDnL63g61b98BDufPFkUSAAA=</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=87baa761c3aff610c134bf12b401310a"/>
+    <sys_hub_sub_flow_instance_v2 action="delete_multiple" query="flow=a741a36dc32ff610c134bf12b40131bb"/>
+    <sys_hub_flow_logic_instance_v2 action="delete_multiple" query="flow=a741a36dc32ff610c134bf12b40131bb^sys_idNOT IN6b8d67a5c3aff610c134bf12b40131c0,7318ebe9c36ff610c134bf12b401317c,af4b2ba1c3aff610c134bf12b40131b0,b523eb21c36ff610c134bf12b401319f,fb18ebe9c36ff610c134bf12b401317a"/>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">638d67a5c3aff610c134bf12b40131c0</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Get Scheduled Import Run Start">a741a36dc32ff610c134bf12b40131bb</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="For Each">098e1dc5c3e232002841b63b12d3ae33</logic_definition>
+        <order>2</order>
+        <outputs_assigned/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:49:41</sys_created_on>
+        <sys_id>6b8d67a5c3aff610c134bf12b40131c0</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:50:04</sys_updated_on>
+        <ui_id>f1fa9335-2a4d-4c2c-a343-8d80c025b8c4</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/51TyW7bMBD9F55lQYsjL7cgQYAAbQM4QS5FYIxIyiZKkSwXO6qgf+/QkpUgp6Inad5s7z2NeqKDN8G7F33rnDgosv35lhChIobvPRGMbEm+Yc0mzza0LKqyyLJivczrqqzzgpXAWUUSoqDlWCk8bx2GJ5Ahxn2f1/RmRYtyUTVsvViuMrZYA+SLG0qX+aouq03WpDtOtWVuGLCVCWckdK//P4EehWSWT2IMWOTmuSXb/kvqX8VJqLnE0sdJ3RexvjMxtCOFCfg29exmFB+RRJElhL97rhjH9Q1IxxPSgmLgte3I1tuAgOXAnpTs5oqjUB7HkVj77sQf3JhnWSxsOAqifEzO4X7ycYSbe/DwjKOpD3YqpUctKHejFYw3EKS/+4yNBU/GC63GFg+1vHZrGVr1Y3SCzAOunw2R4JAEN1FopD7paJ6P+ry7snwQ6mLKlJSagpwj8N6KOvjIpydc8hYH7VswRqjD3lh9Epdm5NKmB4lB2kh9xqXxlFOgkXiKvkL6gPj9BX4FK6KK7zgGm4eEuM7dSXDuQwuauP8dIpNR2aRhP9oQW6gVxt/ighOf6A5v8erH2bOnVDik8BKxx+s/FRMdXpCgn6Gztr8i+Q9s+AtA87+2nQMAAA==</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">5668672dc36ff610c134bf12b401316a</block>
+        <comment/>
+        <connected_to>08857d09-473d-4df2-bf96-260e47e963b4</connected_to>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Get Scheduled Import Run Start">a741a36dc32ff610c134bf12b40131bb</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="Catch">35d60003e6022010a5e40cdd1254dd21</logic_definition>
+        <order>6</order>
+        <outputs_assigned/>
+        <parent_ui_id>146bac13-4f33-41de-b48c-d2c7c2fc1a88</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:25:56</sys_created_on>
+        <sys_id>7318ebe9c36ff610c134bf12b401317c</sys_id>
+        <sys_mod_count>25</sys_mod_count>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:50:02</sys_updated_on>
+        <ui_id>1b1c01a8-963e-426e-922b-3676a2466b4d</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+1Z32/iOBD+V05RHykXChSWt6o9pJ62RTrYfblUkWM71LvGycYO3W7F/77jHzEEyqrtZXV9iFTRZMZ2Zub7/E0MT0FWqrxUcpFdSMmWIpj8e9cJmNA2uH4KGAkmAR6NyaDfp8OEJGdhL0zOexTBRX807uFRGgadQKAVhZFxLBVSpYxjsK0RL7XxKQrWtJAsE1EwiYJeN4yCThTgbJVz+n2WfKFYgedJmwi1Vyd4XV2YSV/QGnU5EsvuXBVMLM0KJ2vji4LNBu5WVEq0fOP8zX5Ac3xPV8iuMeXZwxXV9aHFZHp1cbm4nt3OFxeLT/Na3FFwLRRd0sLlR2j3JGWUkzhFmCppB8+ZfswNyqfaaKY9RVEUlGzxmNOPKKFc3070R7VepFeEj4IiEmeCP/oRKeKSev89E8q7vNWu7O1sb1FCU1RyFRu8DmfzWkSXOtXKhbACVGNaFFkRWyr5gaootwNXSBCksuJY3FlBbEDG19uZ9z3mVCzVvXcOQv25gb8a5lDXLbDO/F+r71ZstPiyvuaran/jsv3N5T/7dflDD4BG4Bd7o3uiIPMXVf9VZbgwaf8xN0rTfDFK9kmwbyW9JtukEUmTUYJPP5Dz0engw5icjsckPB2Tc9wnw/EgpWQP8DqTnMhVQ3AWm9Jo1fRj9oSlGks5XVGh4hXKc2BOnBfZmu3CBbLVXXIwdVPAIiYGjK4tRxcyRd0tRp9RwVBiEMjfIiui5Pw5Vmf1/F6xnc+He4SSFELk7AfS8U+zYoUsT/6ez25hCPQVwmTO0ePntr207aVtL217adtL214abC/4nnFSUGHOP+5co8UWXDkq4F7RAtgWmM1viAbpasMOMjDFaSvMeoY64NekAZHxp6TDxgYWiQuWK83INVhM1SojPHHTMWJbCMQ/MvHVTtkJH45yJbuyi+rQYADzURmG8INgzYEP/leeS5t5vQ7qucUOEzc4BZNeJ6DfFRWEEp+D3yXeokkyA454g2aFjQVwlewHPHEQ6nEphfSwq5C/jV31rDm9AmaCwJZYlQWtKpMxTKUtjL2Z5Roa61aauW5kxsuVuLU5a2CsfuwA4yxXB4iVEiKhuc5Wh+9ySef32cM/VahTJkxhnJNnGHF/hxRIeFIqHahGWD7KS46k3EYDKcffSj3FRuIeFttENs+yZtPxXHbd65V0ts3qnbFZVkHVyOxD3efyjc/8oBTqmQUPUnd8PmuQz2HL6Lcy+m6PwDXdbsW5Fed3SeVWaFuhfbfsvOu8+Av/Cuq/ND3dYenI7wAOcvsSvwf5rDJWcqRxagj0cZOgO9QuGyRCs3g7GdktdF1YfKl3j4dgrx8MwX/sSGhazFsPg0Gjr7KGpYSMwt54hHH/nGqWDofDfjIahIgMQkJIsqUjFToQsvObVO9QN42y7gvhsTeMaqe8IIZqp2yDOIjK7ZAkyzhFYm+LLCCuP6c689+zTRrs201vkt5RuXRg/f+SefTddO3o70uDmf6OeqFt19UPrNrxCHRgeNf0kBVf9f7a2jY/AXwSWiiqHQAA</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">a34ba3a1c3aff610c134bf12b40131aa</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Get Scheduled Import Run Start">a741a36dc32ff610c134bf12b40131bb</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="For Each">098e1dc5c3e232002841b63b12d3ae33</logic_definition>
+        <order>4</order>
+        <outputs_assigned/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:39:51</sys_created_on>
+        <sys_id>af4b2ba1c3aff610c134bf12b40131b0</sys_id>
+        <sys_mod_count>15</sys_mod_count>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:49:41</sys_updated_on>
+        <ui_id>146bac13-4f33-41de-b48c-d2c7c2fc1a88</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/41STWvjMBD9LzobYztL2ORWWgqF7Rba0stSzFgaJ6KypNVHUm/If99RrDihp56sefP13vMcmInBxuBfzY33cqPZ+s97waROGL0PTAq2ZvVK9Ku6WvFFs1w0VdX8/FF3y0VXN2IBKJasYBoGpEoZcPAU7kDFFNNTSG8VjG8XhG+lEg7zMguOegM6tj58SX13uYIOFZU+5O1fyITRptAhN06cgV+553lG6ZNINFXB8DOgFkjre1AeCzaAFhCMG9k6uEiAQxBPWo1zxVbqMMkb4NPLf7SxrqpU2CMJ4ln7HLbZlwnu7yDAC43mIbrZJiM5+skKgT1EFW6vsangyQZp9NQSoFPnbqPioH9PTrB5wNVviJ5IoE1CE/Wso3/Zmv3zmeW91CdTclIZDmqOIAQnuxgSnwNDhQMNagewVupNa53ZyVMzcRnKjaKg7JXZ09J0aiXwRLwkX6G8J/zuBL+Bk0nFI42h5mPB/OhvFXh/0UImtn9jYjIpyxrayYbUwp204YYW7DDTPb6nq5xmz55y6YnCa8IezjefEiNdkOTX0N64j0T+gh3/A6WAuMw9AwAA</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">3123eb21c36ff610c134bf12b401319f</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Get Scheduled Import Run Start">a741a36dc32ff610c134bf12b40131bb</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="Assign Subflow Outputs">df4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>3</order>
+        <outputs_assigned>run_start</outputs_assigned>
+        <parent_ui_id>f1fa9335-2a4d-4c2c-a343-8d80c025b8c4</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:04:14</sys_created_on>
+        <sys_id>b523eb21c36ff610c134bf12b401319f</sys_id>
+        <sys_mod_count>50</sys_mod_count>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:50:04</sys_updated_on>
+        <ui_id>73194aa4-28a5-4603-a0f2-828e5a707cc1</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/41TXW/aMBT9K5OfIUtIBoO3qlWlSt0qFdaXaopu/AFWHTv1B5Qh/vuucRp4YNIeosTH9+Occ28OxATfBe9W5sY5udZk8XogkpEFmXzPJyCA0XIixLTIaVFWjSgmTZUXZcEqMiIaWo6RNujaebAeoS2oEDH8ZNJ1CvYvZ4RupGKWxya/R6QDi/meW7LAlho/NKhHqd+uBf8vJQUNVxj6HPSXZc/pCk2/7yK0VpLxmoHntZcYlC4e+xp3iH9dJdxYFokWI8I/PNeMIx8ByvERaUFjBWP3A2I5sCetzsAG5SVVLXw4+Qd7T7/leR5DBUeRtHdoONa9ewkWSAWW3gbqgx3MNJJyl+xhXEBQ/vYSSwFPnZdGpxQPjfrMNiq0+mdyhgwFLoYVHJLgXdQayfdKxHJjds+fLO+lPtnSXypDQQ0n8N7KJvjI50CCXP3L83R1zXWueIvd6xa6Tup13VmzlaeOKKDNTqUyocwOmcbtzYBGtRlWh+we8bsT/AJWRuk/sAwmx46/tHwP/CFuFZ/P5hSfcVNUdFzls+l4PgM6LovJFN+CFbwkxxFxe3erwLmzaTit+j1EycnC3qw6+R1TqJWdv0FSW977cozLrOMvl6a07bkNg6TSoYRVxB4u4tge11jSS2hn7FsUf8aOfwEhtTFS0AMAAA==</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">9668672dc36ff610c134bf12b4013164</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Get Scheduled Import Run Start">a741a36dc32ff610c134bf12b40131bb</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="Try">07223332de022010ec58424b73829721</logic_definition>
+        <order>5</order>
+        <outputs_assigned/>
+        <parent_ui_id>146bac13-4f33-41de-b48c-d2c7c2fc1a88</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:25:56</sys_created_on>
+        <sys_id>fb18ebe9c36ff610c134bf12b401317a</sys_id>
+        <sys_mod_count>25</sys_mod_count>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:50:02</sys_updated_on>
+        <ui_id>08857d09-473d-4df2-bf96-260e47e963b4</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/6tWyi8tKSgtKQ7JdywuzkzPU7KKjtVRyswDiUHYZYlFmYlJOalQbkpqcmZxZn5eCEjME0ldSmVeYm5mMrJQeX5RdlpOfjlCrBYAD1ouqHEAAAA=</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_pill_compound action="delete_multiple" query="attached_to=a741a36dc32ff610c134bf12b40131bb"/>
+    <sys_hub_flow_variable action="delete_multiple" query="model=a741a36dc32ff610c134bf12b40131bb"/>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>scheduled_import_sysid</element>
+        <help/>
+        <hint/>
+        <label>Scheduled Import Sysid</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_a741a36dc32ff610c134bf12b40131bb</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:35:11</sys_created_on>
+        <sys_id>033a6721c3aff610c134bf12b4013140</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:35:11</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>scheduled_import_table</element>
+        <help/>
+        <hint/>
+        <label>Scheduled Import Table</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_a741a36dc32ff610c134bf12b40131bb</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:35:11</sys_created_on>
+        <sys_id>cf3a6721c3aff610c134bf12b4013144</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:35:11</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_input_a741a36dc32ff610c134bf12b40131bb"/>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>run_start</element>
+        <help/>
+        <hint/>
+        <label>Run Start</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_output_a741a36dc32ff610c134bf12b40131bb</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 00:59:14</sys_created_on>
+        <sys_id>a802afadc32ff610c134bf12b40131d9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 00:59:14</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_output_a741a36dc32ff610c134bf12b40131bb"/>
+    <sys_hub_flow_snapshot action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <acls/>
+        <active>true</active>
+        <annotation/>
+        <attributes>browserActivatedIn=chrome,integrationActivatedIn=standalone,labelCacheCleanUpExecuted=true,viewActivatedIn=naturalLanguage</attributes>
+        <authored_on_release_version>28100</authored_on_release_version>
+        <callable_by_client_api>false</callable_by_client_api>
+        <category/>
+        <copied_from/>
+        <copied_from_name/>
+        <description>Return the run_start of the scheduled import passed in as a param</description>
+        <flow_priority>MEDIUM</flow_priority>
+        <internal_name>get_scheduled_import_run_start</internal_name>
+        <label_cache>[{"name":"subflow.job_table","label":"Input➛Job Table","reference":"","reference_display":"","type":"string","base_type":"string","column_name":"","usedInstances":{"aa248267-1c1c-4bb6-bd9a-9f0a2cbff99c":["table"],"eb953557-fa24-494b-8a0a-72edc4582111":["table"],"1ae6fbd9-e7bf-4f31-8e42-4924c7ba7614":["table"],"da236663-83a8-461f-ae51-3c7f4f7c0592":["table"]},"attributes":{"uiType":"string","uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiUniqueId":"b604b621-e58a-4d8e-a7a8-5009c71e6f34","sourceUiUniqueId":"","sourceType":"","sourceId":""}},{"name":"da236663-83a8-461f-ae51-3c7f4f7c0592.Record.run_start","label":"1 - Look Up Record➛Scheduled Data Import Record➛Starting (run_start)","reference":"","reference_display":"Starting (run_start)","type":"glide_date_time","base_type":"glide_date_time","parent_table_name":"scheduled_import_set","column_name":"run_start","usedInstances":{"73194aa4-28a5-4603-a0f2-828e5a707cc1":["run_start-0"]}}]</label_cache>
+        <master>true</master>
+        <name>Get Scheduled Import Run Start</name>
+        <natlang/>
+        <outputs/>
+        <parent_flow display_value="Get Scheduled Import Run Start">a741a36dc32ff610c134bf12b40131bb</parent_flow>
+        <remote_trigger_id/>
+        <run_as>user</run_as>
+        <run_with_roles/>
+        <sc_callable>false</sc_callable>
+        <status>published</status>
+        <sys_class_name>sys_hub_flow_snapshot</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:16:59</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>a41663e5c36ff610c134bf12b40131ad</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name/>
+        <sys_overrides/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:27:14</sys_updated_on>
+        <type>subflow</type>
+        <version>2</version>
+    </sys_hub_flow_snapshot>
+    <sys_translated_text action="delete_multiple" query="documentkey=a41663e5c36ff610c134bf12b40131ad"/>
+    <sys_variable_value action="delete_multiple" query="document_key=a41663e5c36ff610c134bf12b40131ad"/>
+    <sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_flow_output_a41663e5c36ff610c134bf12b40131ad^id=a41663e5c36ff610c134bf12b40131ad"/>
+    <sys_hub_flow_stage action="delete_multiple" query="flow=a41663e5c36ff610c134bf12b40131ad"/>
+    <sys_flow_cat_variable_model action="delete_multiple" query="id=a41663e5c36ff610c134bf12b40131ad^sys_idNOT INec1663e5c36ff610c134bf12b40131ae"/>
+    <sys_flow_cat_variable_model action="INSERT_OR_UPDATE">
+        <id>a41663e5c36ff610c134bf12b40131ad</id>
+        <name>Get Scheduled Import Run Start</name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:16:59</sys_created_on>
+        <sys_id>ec1663e5c36ff610c134bf12b40131ae</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:16:59</sys_updated_on>
+    </sys_flow_cat_variable_model>
+    <sys_flow_cat_variable action="delete_multiple" query="flow_catalog_model=ec1663e5c36ff610c134bf12b40131ae"/>
+    <sys_hub_flow_input action="delete_multiple" query="model=a41663e5c36ff610c134bf12b40131ad^sys_idNOT IN6c1663e5c36ff610c134bf12b40131b0,6c1663e5c36ff610c134bf12b40131cc"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=string,uiTypeLabel=String,uiUniqueId=ab21bb83-85fc-493d-9685-ae42e82d048a</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>job_sysid</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="String">string</internal_type>
+        <label>Job Sysid</label>
+        <mandatory>true</mandatory>
+        <max_length>65000</max_length>
+        <model display_value="Get Scheduled Import Run Start">a41663e5c36ff610c134bf12b40131ad</model>
+        <model_id>a41663e5c36ff610c134bf12b40131ad</model_id>
+        <model_table>sys_hub_flow_snapshot</model_table>
+        <name>var__m_sys_hub_flow_input_a41663e5c36ff610c134bf12b40131ad</name>
+        <next_element/>
+        <order>2</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:16:59</sys_created_on>
+        <sys_id>6c1663e5c36ff610c134bf12b40131b0</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:25:27</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=6c1663e5c36ff610c134bf12b40131b0"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=string,uiTypeLabel=String,uiUniqueId=b604b621-e58a-4d8e-a7a8-5009c71e6f34</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>job_table</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="String">string</internal_type>
+        <label>Job Table</label>
+        <mandatory>true</mandatory>
+        <max_length>65000</max_length>
+        <model display_value="Get Scheduled Import Run Start">a41663e5c36ff610c134bf12b40131ad</model>
+        <model_id>a41663e5c36ff610c134bf12b40131ad</model_id>
+        <model_table>sys_hub_flow_snapshot</model_table>
+        <name>var__m_sys_hub_flow_input_a41663e5c36ff610c134bf12b40131ad</name>
+        <next_element/>
+        <order>1</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:16:59</sys_created_on>
+        <sys_id>6c1663e5c36ff610c134bf12b40131cc</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:25:27</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=6c1663e5c36ff610c134bf12b40131cc"/>
+    <sys_hub_flow_output action="delete_multiple" query="model=a41663e5c36ff610c134bf12b40131ad^sys_idNOT IN201663e5c36ff610c134bf12b40131da"/>
+    <sys_hub_flow_output action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=glide_date_time,uiTypeLabel=Date/Time,uiUniqueId=e979c979-b14c-4076-97ac-31267acfd1e3</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>run_start</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_link/>
+        <internal_type display_value="">glide_date_time</internal_type>
+        <label>Run Start</label>
+        <mandatory>false</mandatory>
+        <max_length>65000</max_length>
+        <model display_value="Get Scheduled Import Run Start">a41663e5c36ff610c134bf12b40131ad</model>
+        <model_id>a41663e5c36ff610c134bf12b40131ad</model_id>
+        <model_table>sys_hub_flow_snapshot</model_table>
+        <name>var__m_sys_hub_flow_output_a41663e5c36ff610c134bf12b40131ad</name>
+        <next_element/>
+        <order>1</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_output</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:16:59</sys_created_on>
+        <sys_id>201663e5c36ff610c134bf12b40131da</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:16:59</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_output>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=201663e5c36ff610c134bf12b40131da"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=a41663e5c36ff610c134bf12b40131ad"/>
+    <sys_hub_trigger_instance_v2 action="delete_multiple" query="flow=a41663e5c36ff610c134bf12b40131ad"/>
+    <sys_hub_action_instance_v2 action="delete_multiple" query="flow=a41663e5c36ff610c134bf12b40131ad^sys_idNOT IN2c1663e5c36ff610c134bf12b40131f7"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Look Up Record">9d09f99587003300663ca1bb36cb0ba3</action_type>
+        <action_type_parent display_value="Look Up Record">b93f42810b30030085c083eb37673a63</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>9d09f99587003300663ca1bb36cb0ba3</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Get Scheduled Import Run Start">a41663e5c36ff610c134bf12b40131ad</flow>
+        <generation_source/>
+        <order>1</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:16:59</sys_created_on>
+        <sys_id>2c1663e5c36ff610c134bf12b40131f7</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:25:27</sys_updated_on>
+        <ui_id>da236663-83a8-461f-ae51-3c7f4f7c0592</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+VYbXPiNhD+Kxp/vCPEDoSX3KdM0vQyc71MA00/HFePbMmgq5AcSU5CGP57V7INFAgvjdNJpx8YxquV9tndZ3dlf5t6jHhn3inxu0m3e9pp+36j4futViPGQRQ1WnHkR1Hg1TyBxxQ0tVQmNJOUgugB82wuwzoGEWE65XhyV6xgZCR6Bnk8YpwoKryzb99rXooVnGao8s6mK0v7wuE4ohxUe2Ab9XM8GyC6vzOwIVlcPn8ptl6UQqmIhdKoefTJUEEoYEgw17TmjbEg2Eg1mUsUxeRG8IVgxISB0zyr/KTZM9hrnFi9hIJXMc3X5o9hEaJcnFxig3tGZbHJVKGag9UQj+nczXkgN8S8gO/Pagv9Z6uPV/UJXd4QzCDehCY44+bin9kMDrV5Ym3mDt6khknIutewecERL92XPBuLr3kuvTnCuw1ky1cuX+BcpiHYNLUJtRkq0pX0RvLxtszGFRMOV7HIZYz5/Akbo1iUGRuXqZeQMGGUk5AJzoS1BGmz9KGcjsFCOMZpysQwTJV8YO5U8GVcH3J4qCdcPtpYsKGo49h6Xgdi4foVyC+d+A4rZqPwCxwDm2vW4Ai2FvZCHSuWmvCRkSE1C+ulFpHmEfM/N60XjAvLRDn3vFnN0xN9wbHWi2ADTcP7zMYgD30RvdAlym1xKM7BgwdaBMpywJVtsLVsMVkp0TzRS3xZ7x8Hd449IJRRuLGMRNHkJVRF68hz7jT+3j6u7AL6mi+U9K6shXT8alrIphJfL8GDKnC9tCzVXlFZb1hAmyr2cOLnsdnF/u7WodVd8Iwl4RjiyVJOQ0Vj4I4OsaJhIjNBwty5pbKwwU6Y0qZQXi+TWwqpF0gCp5AZUeS00Vz7wBLa7UdZQtcJKh0prGkEjiDnCJo7cpjbh4zsZmX11qyo3hbj8Aoz7rKhDU2X0kmVkuqFsb0jkVsYsedM3xNUUCmo1w/9TSWwcfjvwFrxleBtGlf1gzmmOGqe4Fa7EQS+H/ik7Xfa7aDTipIWbjeTRY2GoRYx3CXg5ASoAseHJTXKPPvr/Se/UBzaaPZAVVLwUopB5vsnbYMsLMgvKmHtBl40lEhKTrFY6Sh9mAjHVwX+gq+n766r/CtT/LXVkLH+aqRz0cZYv9XQz9hvgt1n9NpSrEP9k05A4qNOO2gfNRPSOuoSfHqEu9Fpu0Fo3Eze4iJMTrfeQpeuArEUhFm/dLX34D0QlLV1sQxhE6xyIK/Kvmw6oBwgFZaQ/18qond5Fa7sxpt7l8sc8xaph6dtut7xh4H48OE8hrhrZJEenzvoyEJHmQZv84kN76tWIqMfNDZ11HMHwD3TzXE33TFylVJH9sT8NU5k4wj+mEYySTQ18F6HPgaICfSTnQLoM3CPWxM9mgfMgXmASWEdRdJlX6OCTShLAViqAKrdM/DqAw/hBMqthGe30yc8hrvsGaBRSI/g5RGCHyM7qBqkVKxDdodDqupxpoAMpu4U3VcR6xdY/WTPKjybn+KE9ndL7zMGQNDPNvW37iKDgFQSKuvXjKoJBEUDWqASKgG5vR52ecjR2Fz8sWa51z+/7fd+v+5/BvaZgWeNHg9EgWVgORMykp8w8D6WHukscgxkIs2Mrv+QUQiajHzyZrNFC9z6FoGbi16TU23R/abTwoA72a3OZlW0xN2IypbYLyCtICwaoXvc9EXAbVv5IuD/P78IvM+bNQBiHBiSsyrUMlMulA9hzKG/2AWFhS5eRau7F3z/C2vch2poFwAA</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=2c1663e5c36ff610c134bf12b40131f7"/>
+    <sys_hub_sub_flow_instance_v2 action="delete_multiple" query="flow=a41663e5c36ff610c134bf12b40131ad"/>
+    <sys_hub_flow_logic_instance_v2 action="delete_multiple" query="flow=a41663e5c36ff610c134bf12b40131ad^sys_idNOT IN2c1663e5c36ff610c134bf12b40131f5,6668a72dc36ff610c134bf12b4013105,e668a72dc36ff610c134bf12b4013109,ea68a72dc36ff610c134bf12b4013103"/>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">3123eb21c36ff610c134bf12b401319f</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Get Scheduled Import Run Start">a41663e5c36ff610c134bf12b40131ad</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="Assign Subflow Outputs">df4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>4</order>
+        <outputs_assigned>run_start</outputs_assigned>
+        <parent_ui_id>08857d09-473d-4df2-bf96-260e47e963b4</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:16:59</sys_created_on>
+        <sys_id>2c1663e5c36ff610c134bf12b40131f5</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:27:14</sys_updated_on>
+        <ui_id>73194aa4-28a5-4603-a0f2-828e5a707cc1</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/41Ty27bMBD8lYJnS9XL8uMWJAgQIG0A280lKIQ1HzYRilL4sOMa/vcuLUX2wQV6ECQOl7Mzs9SRNN613tlVc2et3GgyfzsSycicZNMkAwGM5pkQZZrQNC/WIs3WRZLmKSvIiGioOVYaryvrwDiEdqB8wI5HBllelmUeTXOYRkWZigj4OI1yOhGFmNBkPMviBaeNYfHAcDohB5O2VXB47akQoVupmOFB3e8RacFgY8cNmaNWjR8a1LPU77eK/9eLgjVXWLrw+tuyN3PDnzu0AdooyXjFwPHKSSzqNp57jgfEv686HO0FoemI8E/HNeOoR4CyfERq0MjQmMOAGA7sRasLsEV7nasaPq38g73LcZIkoVRwNEn7hIZl1afXwQKlwNIZT503Q5iNpNx28TAuwCt3f411BS+tk43ujjhYq6/TjfK1/tklQwaCq2F5iyJ4G7wG8b0Tsdw2+8WXykepz7H0m6qhoIYVOGfk2rug50i8XP0r827rVupc8Rq7VzW0rdSbqjXNTp47ooE6PlPFQjV7VBqufQw0uI2RHeJHxB/O8CsYGaz/QBo8HDr+0vLD86dwq/hsMqP4ROu0oFGRTMpoNgEa5WlW4luwlOfkNCL2YO8VWHsJDadVffhguYuwD6vq8g5HqJGtu0NRO97ncgqXWYd/tZvSrtc2DJJKixZWAXu6qmMHvMaSXkP7xrwH8xfs9Bf0vKyGCQQAAA==</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">9668672dc36ff610c134bf12b4013164</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Get Scheduled Import Run Start">a41663e5c36ff610c134bf12b40131ad</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="Try">07223332de022010ec58424b73829721</logic_definition>
+        <order>3</order>
+        <outputs_assigned/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:27:13</sys_created_on>
+        <sys_id>6668a72dc36ff610c134bf12b4013105</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:27:14</sys_updated_on>
+        <ui_id>08857d09-473d-4df2-bf96-260e47e963b4</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/6tWyi8tKSgtKQ7JdywuzkzPU7KKjtVRyswDiUHYZYlFmYlJOalQbkpqcmZxZn5eCEjME0ldSmVeYm5mMrJQeX5RdlpOfjlCrBYAD1ouqHEAAAA=</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">5668672dc36ff610c134bf12b401316a</block>
+        <comment/>
+        <connected_to>08857d09-473d-4df2-bf96-260e47e963b4</connected_to>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Get Scheduled Import Run Start">a41663e5c36ff610c134bf12b40131ad</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="Catch">35d60003e6022010a5e40cdd1254dd21</logic_definition>
+        <order>5</order>
+        <outputs_assigned/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:27:13</sys_created_on>
+        <sys_id>e668a72dc36ff610c134bf12b4013109</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:27:14</sys_updated_on>
+        <ui_id>1b1c01a8-963e-426e-922b-3676a2466b4d</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+1Z32/iOBD+V05RHykXChSWt6o9pJ62RTrYfblUkWM71LvGycYO3W7F/77jHzEEyqrtZXV9iFTRZMZ2Zub7/E0MT0FWqrxUcpFdSMmWIpj8e9cJmNA2uH4KGAkmAR6NyaDfp8OEJGdhL0zOexTBRX807uFRGgadQKAVhZFxLBVSpYxjsK0RL7XxKQrWtJAsE1EwiYJeN4yCThTgbJVz+n2WfKFYgedJmwi1Vyd4XV2YSV/QGnU5EsvuXBVMLM0KJ2vji4LNBu5WVEq0fOP8zX5Ac3xPV8iuMeXZwxXV9aHFZHp1cbm4nt3OFxeLT/Na3FFwLRRd0sLlR2j3JGWUkzhFmCppB8+ZfswNyqfaaKY9RVEUlGzxmNOPKKFc3070R7VepFeEj4IiEmeCP/oRKeKSev89E8q7vNWu7O1sb1FCU1RyFRu8DmfzWkSXOtXKhbACVGNaFFkRWyr5gaootwNXSBCksuJY3FlBbEDG19uZ9z3mVCzVvXcOQv25gb8a5lDXLbDO/F+r71ZstPiyvuaran/jsv3N5T/7dflDD4BG4Bd7o3uiIPMXVf9VZbgwaf8xN0rTfDFK9kmwbyW9JtukEUmTUYJPP5Dz0engw5icjsckPB2Tc9wnw/EgpWQP8DqTnMhVQ3AWm9Jo1fRj9oSlGks5XVGh4hXKc2BOnBfZmu3CBbLVXXIwdVPAIiYGjK4tRxcyRd0tRp9RwVBiEMjfIiui5Pw5Vmf1/F6xnc+He4SSFELk7AfS8U+zYoUsT/6ez25hCPQVwmTO0ePntr207aVtL217adtL214abC/4nnFSUGHOP+5co8UWXDkq4F7RAtgWmM1viAbpasMOMjDFaSvMeoY64NekAZHxp6TDxgYWiQuWK83INVhM1SojPHHTMWJbCMQ/MvHVTtkJH45yJbuyi+rQYADzURmG8INgzYEP/leeS5t5vQ7qucUOEzc4BZNeJ6DfFRWEEp+D3yXeokkyA454g2aFjQVwlewHPHEQ6nEphfSwq5C/jV31rDm9AmaCwJZYlQWtKpMxTKUtjL2Z5Roa61aauW5kxsuVuLU5a2CsfuwA4yxXB4iVEiKhuc5Wh+9ySef32cM/VahTJkxhnJNnGHF/hxRIeFIqHahGWD7KS46k3EYDKcffSj3FRuIeFttENs+yZtPxXHbd65V0ts3qnbFZVkHVyOxD3efyjc/8oBTqmQUPUnd8PmuQz2HL6Lcy+m6PwDXdbsW5Fed3SeVWaFuhfbfsvOu8+Av/Cuq/ND3dYenI7wAOcvsSvwf5rDJWcqRxagj0cZOgO9QuGyRCs3g7GdktdF1YfKl3j4dgrx8MwX/sSGhazFsPg0Gjr7KGpYSMwt54hHH/nGqWDofDfjIahIgMQkJIsqUjFToQsvObVO9QN42y7gvhsTeMaqe8IIZqp2yDOIjK7ZAkyzhFYm+LLCCuP6c689+zTRrs201vkt5RuXRg/f+SefTddO3o70uDmf6OeqFt19UPrNrxCHRgeNf0kBVf9f7a2jY/AXwSWiiqHQAA</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">5668672dc36ff610c134bf12b4013161</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Get Scheduled Import Run Start">a41663e5c36ff610c134bf12b40131ad</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="Assign Subflow Outputs">df4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2</order>
+        <outputs_assigned>run_start</outputs_assigned>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:27:13</sys_created_on>
+        <sys_id>ea68a72dc36ff610c134bf12b4013103</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:27:14</sys_updated_on>
+        <ui_id>db132cd1-4379-4406-ac59-184b35a39f37</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/3VTy27aQBT9lWrWQG2gUNhFiSJFShsp0GyqyrqeB1xlPOPMA0JR/r13GMewoAvLnnNf55w7PjIbQxuDX9sb73Fj2PL3kRloJFsyF03lA7jABkygbzUcXkDHFCKEb1ELJ1PFnwFrwVFRkI4tjwwNfRjQj2heryWjIHT8vRiDAsEnY6VmZcHLybRW5bieFuWkFFOq0lBLTanP0XxZdUSucAuHNkEbjUJWAoKsAlJSDjx2Pe4I/7rOuHUiES0HTL4HaYQkPgq0lwPWgKEO1h16xEkQT0afgS3Jy6oaePf4l2bPvhVFkVKVJJG8c6g/Vp17GVZEBVbBRR6i6820yKXP9gipIOpwe4nlhKc2oDW5JECtP6utjo35mZ1hfYOLZUVPJGSbtCbynRK12tr98yfLezQnW7qgthx0f4IQHNYxJD5HFnH9P89z6JrrUsuGplcNtC2aTdU6u8PTRBLQjE6tRkrbPTFNV3EEPKkdUXcY3RN+d4JfwGGS/oPaUHGa+MvgW5QP6VbJxXzB6RnW5ZQPp8V8NlzMgQ8n5XhGbyVKOWEfA+YP/laD92fTaFvVW0ySs4WdWVX2O5Vwh224IVI72fnykS6zSf9P3tKu49YvkqMnCeuEPVzkiQNdY+SX0N661yT+jH38A4gpblCdAwAA</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_pill_compound action="delete_multiple" query="attached_to=a41663e5c36ff610c134bf12b40131ad"/>
+    <sys_hub_flow_variable action="delete_multiple" query="model=a41663e5c36ff610c134bf12b40131ad"/>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>job_table</element>
+        <help/>
+        <hint/>
+        <label>Job Table</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_a41663e5c36ff610c134bf12b40131ad</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:16:59</sys_created_on>
+        <sys_id>281663e5c36ff610c134bf12b40131d3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:16:59</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>job_sysid</element>
+        <help/>
+        <hint/>
+        <label>Job Sysid</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_a41663e5c36ff610c134bf12b40131ad</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:16:59</sys_created_on>
+        <sys_id>e01663e5c36ff610c134bf12b40131c9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:16:59</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_input_a41663e5c36ff610c134bf12b40131ad"/>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>run_start</element>
+        <help/>
+        <hint/>
+        <label>Run Start</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_output_a41663e5c36ff610c134bf12b40131ad</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:16:59</sys_created_on>
+        <sys_id>a81663e5c36ff610c134bf12b40131ed</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:16:59</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_output_a41663e5c36ff610c134bf12b40131ad"/>
+    <sys_hub_flow action="UPDATE">
+        <sys_id>a741a36dc32ff610c134bf12b40131bb</sys_id>
+        <latest_snapshot>a41663e5c36ff610c134bf12b40131ad</latest_snapshot>
+        <compiler_build/>
+        <version_record/>
+    </sys_hub_flow>
+    <sys_flow_trigger_plan action="delete_multiple" query="plan_id=a741a36dc32ff610c134bf12b40131bb"/>
+    <sys_flow_subflow_plan action="delete_multiple" query="plan_id=a741a36dc32ff610c134bf12b40131bb^sys_idNOT INf816a3e5c36ff610c134bf12b4013106"/>
+    <sys_flow_subflow_plan action="INSERT_OR_UPDATE">
+        <plan>com.snc.process_flow.engine.ProcessPlan@42753a5a</plan>
+        <plan_id display_value="Get Scheduled Import Run Start">a741a36dc32ff610c134bf12b40131bb</plan_id>
+        <snapshot>a41663e5c36ff610c134bf12b40131ad</snapshot>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-11 01:16:59</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>f816a3e5c36ff610c134bf12b4013106</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_overrides/>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-11 01:27:14</sys_updated_on>
+    </sys_flow_subflow_plan>
+</record_update>

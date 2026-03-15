@@ -6,51 +6,62 @@
         <event_name>x_42999_import_v_0.data_received</event_name>
         <name>Queue New Vendor Data Import</name>
         <order>100</order>
-        <script><![CDATA[// Queue up the import of this new file.
-queueNewImport(event.parm1 /* Sys_id of newly arrived file */ );
+        <script><![CDATA[// Queue up the import of the oldest attachment on 
+// the Vendor DataQueue data source.
+queueNewImport();
 
-function queueNewImport(attachmentSysId) {
-    // Queue the file up for import via data source "Vendor Data", unless...
+function queueNewImport() {
+    // Queue the file up for import via a new data source
+    // and scheduled import
     const app_id = "52739d78c35b7290c134bf12b4013100"; // "Import Visibility"
 
-    const ds_vendor_data_queue_sys_id = getDataSourceSysId(app_id, "Vendor Data Queue");
-    const ds_vendor_data_sys_id = getDataSourceSysId(app_id, "Vendor Data");
-    const ds_vendor_data_archive_sys_id = getDataSourceSysId(app_id, "Vendor Data Archive");
+    // A new file just arrived on this data source
+    const vendor_data_queue_ds_name = "Vendor Data Queue";
+    const vendor_data_queue_ds_sys_id = getDataSourceSysId(app_id, vendor_data_queue_ds_name);
 
-    const vendorDataUtils = new VendorDataUtils();
+    if (!vendor_data_queue_ds_sys_id) throw vendor_data_queue_ds_name + " data source not found!";
 
-    if (!ds_vendor_data_queue_sys_id) {
-        throw ("Data Source 'Vendor Data Queue' not found.");
-    }
-    if (!ds_vendor_data_sys_id) {
-        throw ("Data Source 'Vendor Data' not found.");
-    }
-    if (!ds_vendor_data_archive_sys_id) {
-        throw ("Data Source 'Vendor Data Archive' not found.");
-    }
+    // We will move it to this data source, deleting any existing, then run an import
+    const vendor_data_ds_name = "Vendor Data";
+    const vendor_data_ds_sys_id = getDataSourceSysId(app_id, vendor_data_ds_name);
 
-    // Run a subflow to ingest this file, unless there is already
-    // an import queued up for a different file. That might happen
-    // if several files arrive at about the same time.
+    if (!vendor_data_ds_sys_id) throw vendor_data_ds_name + " data source not found!";
+
+    // And then set the run start on this scheduled import
+    const scheduled_import_sys_id = getScheduledImportSysId(app_id, "scheduled_import_set", "Vendor Data");
+
+    if (!scheduled_import_sys_id) throw "Vendor Data Scheduled Import Set not found!";
+
+    // Get the oldest attachment on this data source - it may not be the 
+    // file that just arrived. If no attachment exists, exit.
+    var gr_attachment = new GlideRecord("sys_attachment");
+    gr_attachment.addQuery("table_sys_id", vendor_data_queue_ds_sys_id);
+    gr_attachment.addQuery("table_name", "sys_data_source");
+    gr_attachment.orderBy("sys_created_on");
+    gr_attachment.setLimit(1);
+    gr_attachment.query();
+    if (!gr_attachment.next()) {
+        gs.info("No attachment found for Vendor Data Queue");
+        return;
+    }
+    var attachment_sys_id = gr_attachment.getValue("sys_id");
 
     var inputs = {};
+	inputs['import_set_table'] = 'x_42999_import_v_0_vendor_hardware_rows';
     inputs['application_id'] = app_id;
-    inputs['vendor_data_queue_sysid'] = ds_vendor_data_queue_sys_id;
-    inputs['vendor_data_sysid'] = ds_vendor_data_sys_id;
-    inputs['vendor_data_archive_sysid'] = ds_vendor_data_archive_sys_id;
-    inputs['attachment_sysid'] = attachmentSysId;
+    inputs['from_data_source_sys_id'] = vendor_data_queue_ds_sys_id;
+    inputs['to_data_source_sys_id'] = vendor_data_ds_sys_id;
+    inputs['attachment_sys_id'] = attachment_sys_id;
+	inputs['scheduled_import_table_name'] = "scheduled_import_set";
+    inputs['scheduled_import_sys_id'] = scheduled_import_sys_id;
+	
 
-    // Execute Synchronously: Run in foreground. Code snippet has access to outputs.
-    var result = sn_fd.FlowAPI
+    sn_fd.FlowAPI
         .getRunner()
         .subflow('x_42999_import_v_0.import_vendor_data')
-        .inForeground()
+        .inBackground()
         .withInputs(inputs)
         .run();
-    var outputs = result.getOutputs();
-    var output = outputs['output']; // JSON
-    
-
 }
 
 function getDataSourceSysId(app_id, name) {
@@ -58,6 +69,17 @@ function getDataSourceSysId(app_id, name) {
     var gr = new GlideRecord("sys_data_source");
     gr.addQuery("sys_scope", app_id);
     gr.addQuery("name", name);
+    gr.setLimit(1);
+    gr.query();
+    if (gr.next()) result = gr.getValue("sys_id");
+    return result;
+}
+
+function getScheduledImportSysId(app_id, tableName, jobName) {
+    var result = null;
+    var gr = new GlideRecord(tableName);
+    gr.addQuery("sys_scope", app_id);
+    gr.addQuery("name", jobName);
     gr.setLimit(1);
     gr.query();
     if (gr.next()) result = gr.getValue("sys_id");
@@ -70,7 +92,7 @@ function getDataSourceSysId(app_id, name) {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>a3267adac3133210c134bf12b4013131</sys_id>
-        <sys_mod_count>105</sys_mod_count>
+        <sys_mod_count>117</sys_mod_count>
         <sys_name>Queue New Vendor Data Import</sys_name>
         <sys_overrides/>
         <sys_package display_value="Import Visibility" source="x_42999_import_v_0">52739d78c35b7290c134bf12b4013100</sys_package>
@@ -78,6 +100,6 @@ function getDataSourceSysId(app_id, name) {
         <sys_scope display_value="Import Visibility">52739d78c35b7290c134bf12b4013100</sys_scope>
         <sys_update_name>sysevent_script_action_a3267adac3133210c134bf12b4013131</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-03-09 02:40:18</sys_updated_on>
+        <sys_updated_on>2026-03-15 22:08:34</sys_updated_on>
     </sysevent_script_action>
 </record_update>
